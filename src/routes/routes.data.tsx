@@ -1,4 +1,5 @@
 import Home from '../screens/home';
+import Search from '../screens/search';
 
 interface Route {
   component: any;
@@ -9,5 +10,9 @@ export const ROUTES: Route[] = [
   {
     name: 'Home',
     component: Home,
+  },
+  {
+    name: 'Search',
+    component: Search,
   },
 ];

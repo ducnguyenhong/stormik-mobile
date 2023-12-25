@@ -1,10 +1,8 @@
-import { memo, useMemo, useRef } from 'react';
+import { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
 import { TextInput } from 'react-native';
 import { TextInputProps } from './text-input.type';
 
-const TextInputComponent: React.FC<TextInputProps> = (
-  props: TextInputProps,
-) => {
+const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
   const {
     w,
     h,
@@ -79,6 +77,12 @@ const TextInputComponent: React.FC<TextInputProps> = (
     textAlignVertical,
   };
 
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputRef.current?.focus();
+    },
+  }));
+
   return (
     <TextInput
       ref={inputRef}
@@ -92,6 +96,6 @@ const TextInputComponent: React.FC<TextInputProps> = (
       {...rest}
     />
   );
-};
+});
 
 export default memo(TextInputComponent);

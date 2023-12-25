@@ -3,12 +3,13 @@ import WebView from 'react-native-webview';
 import { useRecoilValue } from 'recoil';
 import { View } from '../../../controls';
 import { keywordAtom } from '../../../states/common';
+import HomeDefault from './home-default';
 
 const HomeBody: React.FC = () => {
   const keyword = useRecoilValue(keywordAtom);
 
   if (!keyword) {
-    return null;
+    return <HomeDefault />;
   }
 
   return (
