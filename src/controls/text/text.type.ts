@@ -1,4 +1,4 @@
-import { TextProps as RNTextProps } from 'react-native';
+import { DimensionValue, TextProps as RNTextProps } from 'react-native';
 
 interface TextControlProps {
   m?: number;
@@ -21,8 +21,8 @@ interface TextControlProps {
   fontSize?: number;
   fontFamily?: string;
   color?: string;
-  w?: number | string;
-  h?: number | string;
+  w?: number | DimensionValue;
+  h?: number | DimensionValue;
   textAlign?: 'justify' | 'left' | 'right' | 'auto' | 'center';
   style?: any;
   textDecorationLine?:

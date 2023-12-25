@@ -78,7 +78,7 @@ const MoreAction: React.FC = () => {
               borderBottomWidth: 0.5,
               borderColor: '#e6e6e6',
               paddingBottom: 15,
-              paddingTop: 10,
+              paddingTop: 12,
             }}
             renderItem={({ item }) => {
               const { route, icon, name } = item;

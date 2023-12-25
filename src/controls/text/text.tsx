@@ -24,7 +24,7 @@ const TextComponent: React.FC<TextProps> = props => {
     children,
     fontSize = 14,
     fontFamily = 'Roboto-Regular',
-    color = '#382915',
+    color = '#4f4f4f',
     w,
     h,
     textAlign,
