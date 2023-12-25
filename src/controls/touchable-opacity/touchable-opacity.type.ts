@@ -25,8 +25,8 @@ interface TouchableOpacityControlProps {
   borderLeftWidth?: number;
   borderRightWidth?: number;
   borderColor?: string;
-  w?: number;
-  h?: number;
+  w?: number | string;
+  h?: number | string;
   align?: string;
   justify?: string;
   direction?: string;

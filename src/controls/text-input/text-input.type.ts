@@ -1,8 +1,8 @@
 import { TextInputProps as RNTextInputProps } from 'react-native';
 
 interface TextInputControlProps {
-  w?: number;
-  h?: number;
+  w?: number | string;
+  h?: number | string;
   m?: number;
   p?: number;
   mx?: number;

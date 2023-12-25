@@ -21,8 +21,8 @@ interface TextControlProps {
   fontSize?: number;
   fontFamily?: string;
   color?: string;
-  w?: number;
-  h?: number;
+  w?: number | string;
+  h?: number | string;
   textAlign?: 'justify' | 'left' | 'right' | 'auto' | 'center';
   style?: any;
   textDecorationLine?:

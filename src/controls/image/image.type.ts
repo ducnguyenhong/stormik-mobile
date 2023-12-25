@@ -20,8 +20,8 @@ interface ImageControlProps {
   pl?: number;
   borderRadius?: number;
   zIndex?: number;
-  w?: number;
-  h?: number;
+  w?: number | string;
+  h?: number | string;
   borderWidth?: number;
   borderColor?: string;
   position?: string;

@@ -1,4 +1,5 @@
 import { memo, useRef } from 'react';
+import { FlatList } from 'react-native';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,29 +11,33 @@ const MoreAction: React.FC = () => {
 
   const MORE_TOP_ACTION = [
     {
-      icon: <McIcon name="arrow-right" size={25} />,
-      name: 'Tiến',
+      icon: <McIcon name="arrow-left" size={25} color="#4f4f4f" />,
+      name: 'Quay lại',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="refresh" size={25} />,
+      icon: <McIcon name="refresh" size={25} color="#4f4f4f" />,
       name: 'Tải lại',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="star-outline" size={25} />,
+      icon: <McIcon name="arrow-right" size={25} color="#4f4f4f" />,
+      name: 'Tiến',
+      onPress: () => {},
+    },
+    {
+      icon: <McIcon name="plus" size={27} color="#4f4f4f" />,
+      name: 'Thẻ mới',
+      onPress: () => {},
+    },
+    {
+      icon: <McIcon name="star-outline" size={25} color="#4f4f4f" />,
       name: 'Đánh dấu',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="download" size={25} />,
-      name: 'Tải xuống',
-      onPress: () => {},
-    },
-
-    {
-      icon: <McIcon name="cog" size={25} />,
-      name: 'Cài đặt',
+      icon: <McIcon name="information-outline" size={25} color="#4f4f4f" />,
+      name: 'Thông tin',
       onPress: () => {},
     },
   ];
@@ -44,7 +49,7 @@ const MoreAction: React.FC = () => {
       </TouchableOpacity>
 
       <ActionSheet ref={moreActionRef} useBottomSafeAreaPadding>
-        <View direction="row" bgColor="#f2f2f2" justify="space-evenly" py={2}>
+        <View direction="row" bgColor="#f0f0f4" justify="space-evenly" py={1}>
           {MORE_TOP_ACTION.map(item => {
             const { icon, name, onPress } = item;
             return (
@@ -64,23 +69,33 @@ const MoreAction: React.FC = () => {
             );
           })}
         </View>
-        <View mt={10}>
-          {MORE_ACTION.map(item => {
-            const { route, icon, name } = item;
-            return (
-              <TouchableOpacity
-                onPress={() => moreActionRef.current?.hide()}
-                py={12}
-                px={20}
-                key={route}
-                direction="row"
-                gap={20}
-                align="center">
-                {icon}
-                <Text fontSize={16}>{name}</Text>
-              </TouchableOpacity>
-            );
-          })}
+        <View direction="row" mb={20} pb={5}>
+          <FlatList
+            data={MORE_ACTION}
+            keyExtractor={item => item.route}
+            numColumns={4}
+            contentContainerStyle={{
+              borderWidth: 0.4,
+              borderColor: '#ccc',
+            }}
+            renderItem={({ item }) => {
+              const { route, icon, name } = item;
+              return (
+                <TouchableOpacity
+                  borderWidth={0.4}
+                  borderColor="#ccc"
+                  w="25%"
+                  onPress={() => moreActionRef.current?.hide()}
+                  py={16}
+                  key={route}
+                  gap={10}
+                  align="center">
+                  {icon}
+                  <Text>{name}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
         </View>
       </ActionSheet>
     </View>

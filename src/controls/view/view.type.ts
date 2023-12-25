@@ -24,8 +24,8 @@ interface ViewControlProps {
   justify?: string;
   direction?: string;
   flex?: number;
-  h?: number;
-  w?: number;
+  h?: number | string;
+  w?: number | string;
   gap?: number;
   columnGap?: number;
   rowGap?: number;
