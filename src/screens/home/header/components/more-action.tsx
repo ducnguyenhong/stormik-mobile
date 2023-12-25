@@ -49,7 +49,7 @@ const MoreAction: React.FC = () => {
       </TouchableOpacity>
 
       <ActionSheet ref={moreActionRef} useBottomSafeAreaPadding>
-        <View direction="row" bgColor="#f0f0f4" justify="space-evenly" py={1}>
+        <View direction="row" bgColor="#efeff6" justify="space-evenly" py={2}>
           {MORE_TOP_ACTION.map(item => {
             const { icon, name, onPress } = item;
             return (
@@ -69,28 +69,31 @@ const MoreAction: React.FC = () => {
             );
           })}
         </View>
-        <View direction="row" mb={20} pb={5}>
+        <View direction="row">
           <FlatList
             data={MORE_ACTION}
             keyExtractor={item => item.route}
-            numColumns={4}
+            numColumns={3}
             contentContainerStyle={{
-              borderWidth: 0.4,
-              borderColor: '#ccc',
+              borderBottomWidth: 0.5,
+              borderColor: '#e6e6e6',
+              paddingBottom: 15,
+              paddingTop: 10,
             }}
             renderItem={({ item }) => {
               const { route, icon, name } = item;
               return (
                 <TouchableOpacity
-                  borderWidth={0.4}
-                  borderColor="#ccc"
-                  w="25%"
+                  activeOpacity={0.5}
+                  w="33.33%"
                   onPress={() => moreActionRef.current?.hide()}
-                  py={16}
+                  py={15}
                   key={route}
-                  gap={10}
+                  gap={4}
                   align="center">
-                  {icon}
+                  <View h={28} justify="center">
+                    {icon}
+                  </View>
                   <Text>{name}</Text>
                 </TouchableOpacity>
               );
