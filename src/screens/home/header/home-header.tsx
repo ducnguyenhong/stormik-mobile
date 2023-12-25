@@ -24,7 +24,7 @@ const HomeHeader = () => {
       bgColor="#FFF"
       justify={keyword ? 'flex-start' : 'space-between'}>
       <TouchableOpacity px={15} onPress={onPressHome}>
-        <Ionicon name="home" size={18} color="#6b9c27" />
+        <Ionicon name="home" size={18} color="#4EB750" />
       </TouchableOpacity>
       {!!keyword && (
         <TouchableOpacity

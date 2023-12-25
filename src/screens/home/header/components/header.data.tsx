@@ -3,42 +3,42 @@ import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const MORE_ACTION = [
   {
-    icon: <McIcon name="plus" size={29} color="#6b9c27" />,
+    icon: <McIcon name="plus" size={29} color="#4EB750" />,
     name: 'Thẻ mới',
     route: 'Page',
   },
   {
-    icon: <McIcon name="incognito" size={25} color="#6b9c27" />,
+    icon: <McIcon name="incognito" size={25} color="#4EB750" />,
     name: 'Ẩn danh',
     route: 'IncognitoPage',
   },
   {
-    icon: <McIcon name="history" size={25} color="#6b9c27" />,
+    icon: <McIcon name="history" size={25} color="#4EB750" />,
     name: 'Lịch sử',
     route: 'History',
   },
   {
-    icon: <McIcon name="star" size={25} color="#6b9c27" />,
+    icon: <McIcon name="star" size={25} color="#4EB750" />,
     name: 'Dấu trang',
     route: 'Bookmark',
   },
   {
-    icon: <Ionicon name="moon" size={21} color="#6b9c27" />,
+    icon: <Ionicon name="moon" size={21} color="#4EB750" />,
     name: 'Chủ đề',
     route: 'Theme',
   },
   {
-    icon: <McIcon name="download" size={25} color="#6b9c27" />,
+    icon: <McIcon name="download" size={25} color="#4EB750" />,
     name: 'Tải xuống',
     route: 'Download',
   },
   {
-    icon: <McIcon name="cog" size={24} color="#6b9c27" />,
+    icon: <McIcon name="cog" size={24} color="#4EB750" />,
     name: 'Cài đặt',
     route: 'Setting',
   },
   {
-    icon: <McIcon name="alert-circle-outline" size={25} color="#6b9c27" />,
+    icon: <McIcon name="alert-circle-outline" size={25} color="#4EB750" />,
     name: 'Trợ giúp',
     route: 'Support',
   },

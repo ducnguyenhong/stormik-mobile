@@ -14,8 +14,8 @@ const HomeDefault: React.FC = () => {
         mt={40}
         mb={50}
         direction="row">
-        <Image source={Logo} style={{ width: 42, height: 42 }} />
-        <Text fontSize={40} color="#6b9c27">
+        <Image source={Logo} style={{ width: 45, height: 45 }} />
+        <Text fontSize={42} color="#4EB750">
           Stormik
         </Text>
       </View>
