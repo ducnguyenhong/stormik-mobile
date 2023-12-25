@@ -4,6 +4,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilState } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
 import { keywordAtom } from '../../../states/common';
+import MoreAction from './components/more-action';
 
 const HomeHeader = () => {
   const [keyword, setKeyword] = useRecoilState(keywordAtom);
@@ -51,9 +52,7 @@ const HomeHeader = () => {
           align="center">
           <Text fontSize={12}>1</Text>
         </TouchableOpacity>
-        <TouchableOpacity px={15}>
-          <Ionicon name="ellipsis-vertical" size={18} color="#000" />
-        </TouchableOpacity>
+        <MoreAction />
       </View>
     </View>
   );

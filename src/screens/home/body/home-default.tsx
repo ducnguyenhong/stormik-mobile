@@ -7,7 +7,13 @@ const HomeDefault: React.FC = () => {
   const navigation = useNavigation<any>();
   return (
     <View bgColor="#FFF" flex={1}>
-      <View justify="center" align="center" gap={15} my={40} direction="row">
+      <View
+        justify="center"
+        align="center"
+        gap={15}
+        mt={40}
+        mb={50}
+        direction="row">
         <Image source={Logo} style={{ width: 45, height: 45 }} />
         <Text fontSize={45} color="#6b9c27">
           Stormik
