@@ -4,7 +4,6 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilState } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
 import { keywordAtom } from '../../../states/common';
-import MoreAction from './components/more-action';
 
 const HomeHeader = () => {
   const [keyword, setKeyword] = useRecoilState(keywordAtom);
@@ -19,12 +18,14 @@ const HomeHeader = () => {
     <View
       direction="row"
       align="center"
-      py={4}
-      h={48}
+      py={6}
+      h={50}
+      borderBottomWidth={0.3}
+      borderColor="#ccc"
       bgColor="#FFF"
       justify={keyword ? 'flex-start' : 'space-between'}>
-      <TouchableOpacity px={15} onPress={onPressHome}>
-        <Ionicon name="home" size={18} color="#4EB750" />
+      <TouchableOpacity px={20} onPress={onPressHome}>
+        <Ionicon name="home" size={18} color="#828282" />
       </TouchableOpacity>
       {!!keyword && (
         <TouchableOpacity
@@ -34,25 +35,24 @@ const HomeHeader = () => {
           flex={1}
           px={15}
           borderWidth={0.5}
-          py={10}
+          py={9}
           onPress={() => navigation.navigate('Search')}>
           <Text>{keyword}</Text>
         </TouchableOpacity>
       )}
-      <View direction="row" align="center" gap={8}>
-        <TouchableOpacity px={15}>
-          <Ionicon name="add" size={24} color="#000" />
-        </TouchableOpacity>
+      <View direction="row" align="center" px={20}>
         <TouchableOpacity
-          borderWidth={1}
+          borderWidth={1.5}
           w={20}
           h={20}
+          borderColor="#828282"
           borderRadius={3}
           justify="center"
           align="center">
-          <Text fontSize={12}>1</Text>
+          <Text fontSize={12} color="#828282">
+            1
+          </Text>
         </TouchableOpacity>
-        <MoreAction />
       </View>
     </View>
   );
