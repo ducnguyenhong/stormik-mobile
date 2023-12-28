@@ -19,9 +19,9 @@ const HomeDefault: React.FC = () => {
         // direction="row"
       >
         <Image source={Logo} style={{ width: 100, height: 100 }} />
-        <Text fontSize={18} color="#55bd42">
+        {/* <Text fontSize={18} color="#55bd42">
           Stormik Browser - Trình duyệt siêu tốc
-        </Text>
+        </Text> */}
       </View>
 
       <View px={25}>

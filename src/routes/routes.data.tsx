@@ -1,3 +1,4 @@
+import History from '../screens/history';
 import Home from '../screens/home';
 import Search from '../screens/search';
 
@@ -14,5 +15,9 @@ export const ROUTES: Route[] = [
   {
     name: 'Search',
     component: Search,
+  },
+  {
+    name: 'History',
+    component: History,
   },
 ];

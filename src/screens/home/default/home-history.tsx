@@ -1,47 +1,31 @@
 import { memo } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
+import { keywordAtom } from '../../../states/common';
 
 const HomeHistory: React.FC = () => {
+  const setKeyword = useSetRecoilState(keywordAtom);
   const HISTORY_LIST = [
     {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
+      favicon: 'https://www.24h.com.vn/favicon.ico',
+      title: '24h',
+      url: 'https://www.24h.com.vn',
     },
     {
       favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
+        'https://s1.vnecdn.net/vnexpress/restruct/i/v848/logos/114x114.png',
+      title: 'VnExpress',
+      url: 'https://vnexpress.net',
     },
     {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
+      favicon: 'https://static.znews.vn/favicon/v005/app_192x192.png',
+      title: 'ZNews',
+      url: 'https://znews.vn',
     },
     {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
-    },
-    {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
-    },
-    {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
-    },
-    {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
-    },
-    {
-      favicon:
-        'https://www.youtube.com/s/desktop/28b0985e/img/favicon_48x48.png',
-      title: 'Youtube',
+      favicon: 'https://vtv1.mediacdn.vn/web_images/vtv192.png',
+      title: 'VTV',
+      url: 'https://vtv.vn',
     },
   ];
 
@@ -49,6 +33,7 @@ const HomeHistory: React.FC = () => {
     <View direction="row" flexWrap="wrap" px={20} rowGap={15} mt={40}>
       {HISTORY_LIST.map((item, index) => (
         <TouchableOpacity
+          onPress={() => setKeyword(item.url)}
           key={index}
           w="25%"
           align="center"
@@ -61,7 +46,7 @@ const HomeHistory: React.FC = () => {
             borderRadius={30}
             align="center"
             justify="center">
-            <Image url={item.favicon} w={25} h={25} />
+            <Image url={item.favicon} w={20} h={20} />
           </View>
           <Text fontSize={13}>{item.title}</Text>
         </TouchableOpacity>

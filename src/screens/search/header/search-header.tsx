@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useRecoilState } from 'recoil';
 import { Text, TextInput, TouchableOpacity, View } from '../../../controls';
@@ -10,6 +10,11 @@ const SearchHeader: React.FC = () => {
   const [currentUrl, setCurrentUrl] = useState(keyword);
   const navigation = useNavigation<any>();
   const searchRef = useRef<any>(null);
+
+  const onSearch = useCallback(() => {
+    setKeyword(currentUrl);
+    navigation.navigate('Home');
+  }, [currentUrl, navigation, setKeyword]);
 
   useEffect(() => {
     searchRef?.current?.focus();
@@ -32,10 +37,7 @@ const SearchHeader: React.FC = () => {
         placeholder="Tìm kiếm hoặc nhập URL"
         borderWidth={0}
         onChangeText={data => setCurrentUrl(data)}
-        onEndEditing={() => {
-          setKeyword(currentUrl);
-          navigation.navigate('Home');
-        }}
+        onEndEditing={onSearch}
         value={currentUrl}
       />
 

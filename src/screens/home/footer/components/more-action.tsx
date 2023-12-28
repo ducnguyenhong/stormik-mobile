@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { memo, useRef } from 'react';
 import { FlatList } from 'react-native';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
@@ -6,6 +7,7 @@ import { Text, TouchableOpacity, View } from '../../../../controls';
 import { MORE_ACTION } from './header.data';
 
 const MoreAction: React.FC = () => {
+  const navigation = useNavigation<any>();
   const moreActionRef = useRef<ActionSheetRef>(null);
 
   return (
@@ -39,7 +41,10 @@ const MoreAction: React.FC = () => {
                 <TouchableOpacity
                   activeOpacity={0.5}
                   w="33.33%"
-                  onPress={() => moreActionRef.current?.hide()}
+                  onPress={() => {
+                    navigation.navigate(route);
+                    moreActionRef.current?.hide();
+                  }}
                   py={15}
                   key={route}
                   gap={4}
