@@ -6,6 +6,7 @@ import { asyncStorageEffect } from '../utils/helper';
 export const keywordAtom = atom<string>({
   key: 'KEYWORD_ATOM',
   default: '',
+  effects: [asyncStorageEffect('current-url')],
 });
 
 export const tabsAtom = atom<TabType[]>({
