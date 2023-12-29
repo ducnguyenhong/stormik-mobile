@@ -1,42 +1,71 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
-import { historyAtom, keywordAtom } from '../../../states/common';
+import { historyAtom, keywordAtom, tabsAtom } from '../../../states/common';
+import { HistoryType } from '../../../types/history.type';
 
 const HomeHistory: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
   const historyList = useRecoilValue(historyAtom);
+  const [tabs, setTabs] = useRecoilState(tabsAtom);
 
-  const HISTORY_LIST = [
+  const HISTORY_LIST: HistoryType[] = [
     {
       favicon: 'https://www.24h.com.vn/favicon.ico',
       title: '24h',
       url: 'https://www.24h.com.vn',
+      id: '1',
+      type: 'URL',
+      domain: 'www.24h.com.vn',
     },
     {
       favicon:
         'https://s1.vnecdn.net/vnexpress/restruct/i/v848/logos/114x114.png',
       title: 'VnExpress',
       url: 'https://vnexpress.net',
+      id: '2',
+      type: 'URL',
+      domain: 'vnexpress.net',
     },
     {
       favicon: 'https://static.znews.vn/favicon/v005/app_192x192.png',
       title: 'ZNews',
       url: 'https://znews.vn',
+      id: '3',
+      type: 'URL',
+      domain: 'znews.vn',
     },
     {
       favicon: 'https://vtv1.mediacdn.vn/web_images/vtv192.png',
       title: 'VTV',
       url: 'https://vtv.vn',
+      id: '4',
+      type: 'URL',
+      domain: 'vtv.vn',
     },
   ];
+
+  const onOpenHistory = useCallback(
+    (item: HistoryType) => {
+      const { url, title } = item;
+      const newsTabs = tabs.map(i => {
+        if (i.isActive) {
+          return { ...i, url, title };
+        }
+        return i;
+      });
+      setTabs(newsTabs);
+      setKeyword(url);
+    },
+    [setKeyword, setTabs, tabs],
+  );
 
   return (
     <View direction="row" flexWrap="wrap" px={20} rowGap={15} mt={40}>
       {HISTORY_LIST.map((item, index) => (
         <TouchableOpacity
-          onPress={() => setKeyword(item.url)}
+          onPress={() => onOpenHistory(item)}
           key={index}
           w="25%"
           align="center"
@@ -55,9 +84,9 @@ const HomeHistory: React.FC = () => {
           <Text fontSize={13}>{item.title}</Text>
         </TouchableOpacity>
       ))}
-      {historyList.slice(0, 4).map((item: any) => (
+      {historyList.slice(0, 4).map(item => (
         <TouchableOpacity
-          onPress={() => setKeyword(item.url)}
+          onPress={() => onOpenHistory(item)}
           key={item.id}
           w="25%"
           px={5}

@@ -106,6 +106,6 @@ export const useAddTab = () => {
   const setTabs = useSetRecoilState(tabsAtom);
 
   return (data: TabType) => {
-    setTabs(prev => [data, ...prev]);
+    setTabs(prev => [data, ...prev.map(i => ({ ...i, isActive: false }))]);
   };
 };

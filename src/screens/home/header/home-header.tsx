@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { memo, useCallback } from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
-import { keywordAtom } from '../../../states/common';
+import { keywordAtom, tabsAtom } from '../../../states/common';
 
 const HomeHeader = () => {
   const [keyword, setKeyword] = useRecoilState(keywordAtom);
   const navigation = useNavigation<any>();
+  const tabs = useRecoilValue(tabsAtom);
 
   const onPressHome = useCallback(() => {
     setKeyword('');
@@ -42,6 +43,7 @@ const HomeHeader = () => {
       )}
       <View direction="row" align="center" px={20}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('Tabs')}
           borderWidth={1.5}
           w={20}
           h={20}
@@ -50,7 +52,7 @@ const HomeHeader = () => {
           justify="center"
           align="center">
           <Text fontSize={12} color="#828282">
-            1
+            {tabs.length}
           </Text>
         </TouchableOpacity>
       </View>

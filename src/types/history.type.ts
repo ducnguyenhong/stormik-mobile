@@ -3,7 +3,7 @@ export interface HistoryType {
   type: 'URL' | 'SEARCH';
   url: string;
   domain: string;
-  accessedAt: number;
+  accessedAt?: number;
   favicon?: string;
   id: string;
 }

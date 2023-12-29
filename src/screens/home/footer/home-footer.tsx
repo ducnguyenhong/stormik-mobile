@@ -1,9 +1,16 @@
 import { Fragment, memo } from 'react';
+import uuid from 'react-native-uuid';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSetRecoilState } from 'recoil';
 import { TouchableOpacity, View } from '../../../controls';
+import { keywordAtom } from '../../../states/common';
+import { useAddTab } from '../../../utils/helper';
 import MoreAction from './components/more-action';
 
 const HomeFooter: React.FC = () => {
+  const addTab = useAddTab();
+  const setKeyword = useSetRecoilState(keywordAtom);
+
   const ACTIONS = [
     {
       icon: <McIcon name="arrow-left" size={25} color="#828282" />,
@@ -23,7 +30,16 @@ const HomeFooter: React.FC = () => {
     {
       icon: <McIcon name="plus" size={27} color="#828282" />,
       name: 'Thẻ mới',
-      onPress: () => {},
+      onPress: () => {
+        addTab({
+          id: uuid.v4() as string,
+          url: '',
+          title: 'Trang chủ',
+          isActive: true,
+          type: 'NORMAL',
+        });
+        setKeyword('');
+      },
     },
     {
       name: 'Thêm',
