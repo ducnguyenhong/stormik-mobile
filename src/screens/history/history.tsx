@@ -1,14 +1,14 @@
 import { memo, useCallback } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
+import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilState } from 'recoil';
+import { NavigationBar } from '../../components';
 import { Text, TouchableOpacity, View } from '../../controls';
 import { historyAtom } from './subs/history.recoil';
 
 const History: React.FC = () => {
   const [historyList, setHistoryList] = useRecoilState(historyAtom);
-
-  console.log('ducnh historyList', historyList);
 
   const onDeleteHistory = useCallback(
     (id: string) => {
@@ -18,12 +18,26 @@ const History: React.FC = () => {
     [historyList, setHistoryList],
   );
 
+  const onDeleteAllHistory = useCallback(() => {
+    setHistoryList([]);
+  }, [setHistoryList]);
+
   return (
     <SafeAreaView style={{ backgroundColor: '#FFF', flex: 1 }}>
+      <NavigationBar title="Lịch sử hoạt động" />
+      {!!historyList.length && (
+        <View px={16} mt={10}>
+          <TouchableOpacity onPress={onDeleteAllHistory}>
+            <Text fontSize={16} color="red">
+              Xoá tất cả lịch sử
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <FlatList
         data={historyList}
         keyExtractor={(item: any) => item.id}
-        contentContainerStyle={{ gap: 10 }}
+        contentContainerStyle={{ gap: 10, marginTop: 10 }}
         renderItem={({ item }) => {
           const { title, type, url, domain, accessedAt, favicon, id } = item;
           return (
@@ -31,6 +45,7 @@ const History: React.FC = () => {
               py={5}
               direction="row"
               px={16}
+              gap={15}
               justify="space-between"
               align="center">
               <View direction="row" flex={1} gap={15}>
@@ -41,7 +56,7 @@ const History: React.FC = () => {
                   bgColor="#f2f2f2"
                   align="center"
                   justify="center">
-                  <Text>fav</Text>
+                  <FaIcon name="globe" color="#b9b9b9" size={20} />
                 </View>
                 <View>
                   <Text numberOfLines={1} fontSize={15}>
