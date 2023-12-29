@@ -23,7 +23,7 @@ const TextComponent: React.FC<TextProps> = props => {
     boxShadow,
     children,
     fontSize = 14,
-    fontFamily = 'Roboto-Regular',
+    fontFamily = 'Inter-Regular',
     color = '#4f4f4f',
     w,
     h,

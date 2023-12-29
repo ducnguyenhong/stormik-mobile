@@ -31,6 +31,7 @@ const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
     textAlignVertical,
     secureTextEntry,
     editable,
+    fontFamily = 'Inter-Regular',
     ...rest
   } = props;
   const inputRef = useRef<any>(null);
@@ -46,7 +47,7 @@ const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
     boxShadow || {};
 
   const defaultStyle = {
-    fontFamily: 'Roboto-Regular',
+    fontFamily,
     fontSize: 14,
     color: '#382915',
     backgroundColor: bgColor,

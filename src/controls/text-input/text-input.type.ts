@@ -30,6 +30,7 @@ interface TextInputControlProps {
   textAlignVertical?: string;
   secureTextEntry?: boolean;
   editable?: boolean;
+  fontFamily?: string;
 }
 
 export type TextInputProps = RNTextInputProps & TextInputControlProps;

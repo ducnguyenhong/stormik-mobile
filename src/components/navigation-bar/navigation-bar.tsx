@@ -48,7 +48,7 @@ const NavigationBar: React.FC<NavigationBarProps> = props => {
           <View align="center" pl={showBack ? 0 : 16}>
             {!!NavigationCenter && NavigationCenter}
             {!!title && (
-              <Text fontSize={18} fontFamily="Roboto-Bold" color="#312412">
+              <Text fontSize={18} fontFamily="Inter-SemiBold" color="#312412">
                 {title}
               </Text>
             )}

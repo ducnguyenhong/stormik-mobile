@@ -52,7 +52,7 @@ const MoreAction: React.FC = () => {
                   <View h={28} justify="center">
                     {icon}
                   </View>
-                  <Text>{name}</Text>
+                  <Text fontFamily="Inter-Medium">{name}</Text>
                 </TouchableOpacity>
               );
             }}

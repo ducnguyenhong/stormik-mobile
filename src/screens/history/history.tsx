@@ -28,7 +28,7 @@ const History: React.FC = () => {
       {!!historyList.length && (
         <View px={16} mt={10}>
           <TouchableOpacity onPress={onDeleteAllHistory}>
-            <Text fontSize={16} color="red">
+            <Text fontSize={16} color="red" fontFamily="Inter-Medium">
               Xoá tất cả lịch sử
             </Text>
           </TouchableOpacity>
@@ -58,11 +58,16 @@ const History: React.FC = () => {
                   justify="center">
                   <FaIcon name="globe" color="#b9b9b9" size={20} />
                 </View>
-                <View>
-                  <Text numberOfLines={1} fontSize={15}>
+                <View flex={1}>
+                  <Text
+                    numberOfLines={1}
+                    fontSize={15}
+                    fontFamily="Inter-Medium">
                     {title || url}
                   </Text>
-                  <Text fontSize={13}>{domain}</Text>
+                  <Text fontSize={13} color="#828282">
+                    {domain}
+                  </Text>
                 </View>
               </View>
               <TouchableOpacity onPress={() => onDeleteHistory(id)}>

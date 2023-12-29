@@ -1,4 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
+import uuid from 'react-native-uuid';
+import { useSetRecoilState } from 'recoil';
+import { historyAtom } from '../screens/history/subs/history.recoil';
 
 export const setAsyncStorage = async (key: string, value: any) => {
   try {
@@ -50,4 +54,48 @@ export const asyncStorageEffect = (key: string) => {
       setAsyncStorage(key, isReset ? null : newValue),
     );
   };
+};
+
+interface History {
+  url: string;
+  title: string;
+}
+
+export const useSetHistory = () => {
+  const setHistoryList = useSetRecoilState(historyAtom);
+
+  return (data: History) =>
+    setHistoryList((prev: any[]) => {
+      const { url, title } = data;
+
+      const lastHistory = prev[0];
+      const prevList = prev.slice(0);
+      if (lastHistory?.url === url) {
+        const newHistory = prevList.shift();
+        return [
+          {
+            title,
+            type: 'URL', // 'SEARCH'
+            url,
+            domain: getDomainWebsite(url),
+            accessedAt: dayjs().valueOf(),
+            favicon: '',
+            id: uuid.v4(),
+          },
+          ...newHistory,
+        ];
+      }
+      return [
+        {
+          title,
+          type: 'URL', // 'SEARCH'
+          url,
+          domain: getDomainWebsite(url),
+          accessedAt: dayjs().valueOf(),
+          favicon: '',
+          id: uuid.v4(),
+        },
+        ...prev,
+      ];
+    });
 };

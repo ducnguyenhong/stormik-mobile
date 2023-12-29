@@ -1,10 +1,14 @@
 import { memo } from 'react';
-import { useSetRecoilState } from 'recoil';
+import FaIcon from 'react-native-vector-icons/FontAwesome';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
 import { keywordAtom } from '../../../states/common';
+import { historyAtom } from '../../history/subs/history.recoil';
 
 const HomeHistory: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
+  const historyList = useRecoilValue(historyAtom);
+
   const HISTORY_LIST = [
     {
       favicon: 'https://www.24h.com.vn/favicon.ico',
@@ -37,6 +41,7 @@ const HomeHistory: React.FC = () => {
           key={index}
           w="25%"
           align="center"
+          px={5}
           justify="center"
           gap={5}>
           <View
@@ -49,6 +54,29 @@ const HomeHistory: React.FC = () => {
             <Image url={item.favicon} w={20} h={20} />
           </View>
           <Text fontSize={13}>{item.title}</Text>
+        </TouchableOpacity>
+      ))}
+      {historyList.slice(0, 4).map((item: any) => (
+        <TouchableOpacity
+          onPress={() => setKeyword(item.url)}
+          key={item.id}
+          w="25%"
+          px={5}
+          align="center"
+          justify="center"
+          gap={5}>
+          <View
+            bgColor="#f2f2f2"
+            w={50}
+            h={50}
+            borderRadius={30}
+            align="center"
+            justify="center">
+            <FaIcon name="globe" color="#b9b9b9" size={20} />
+          </View>
+          <Text fontSize={13} numberOfLines={1}>
+            {item.title}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>

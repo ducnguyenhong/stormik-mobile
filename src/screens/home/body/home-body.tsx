@@ -1,60 +1,28 @@
-import dayjs from 'dayjs';
 import { memo, useCallback } from 'react';
-import uuid from 'react-native-uuid';
 import WebView from 'react-native-webview';
 import {
   WebViewErrorEvent,
   WebViewNavigationEvent,
 } from 'react-native-webview/lib/WebViewTypes';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { View } from '../../../controls';
 import { keywordAtom } from '../../../states/common';
-import { getDomainWebsite } from '../../../utils/helper';
-import { historyAtom } from '../../history/subs/history.recoil';
+import { useSetHistory } from '../../../utils/helper';
 import HomeDefault from '../default';
 
 const HomeBody: React.FC = () => {
   const keyword = useRecoilValue(keywordAtom);
-  const setHistoryList: any = useSetRecoilState(historyAtom);
+  const setHistory = useSetHistory();
 
   const onLoadEnd = useCallback(
     (e: WebViewNavigationEvent | WebViewErrorEvent) => {
       const { title, url } = e.nativeEvent;
 
       if (keyword) {
-        setHistoryList((prev: any) => {
-          const lastHistory = prev[0];
-          if (lastHistory?.url === url) {
-            const newHistory = prev.shift();
-            return [
-              {
-                title,
-                type: 'URL', // 'SEARCH'
-                url,
-                domain: getDomainWebsite(keyword),
-                accessedAt: dayjs().valueOf(),
-                favicon: '',
-                id: uuid.v4(),
-              },
-              ...newHistory,
-            ];
-          }
-          return [
-            {
-              title,
-              type: 'URL', // 'SEARCH'
-              url,
-              domain: getDomainWebsite(keyword),
-              accessedAt: dayjs().valueOf(),
-              favicon: '',
-              id: uuid.v4(),
-            },
-            ...prev,
-          ];
-        });
+        setHistory({ title, url });
       }
     },
-    [keyword, setHistoryList],
+    [keyword, setHistory],
   );
 
   // useEffect(() => {
