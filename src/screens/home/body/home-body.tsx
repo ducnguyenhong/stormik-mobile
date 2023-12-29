@@ -43,7 +43,7 @@ const HomeBody: React.FC = () => {
 
   return (
     <View flex={1}>
-      <WebView icon source={{ uri: keyword }} onLoadEnd={onLoadEnd} />
+      <WebView source={{ uri: keyword }} onLoadEnd={onLoadEnd} />
     </View>
   );
 };

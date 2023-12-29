@@ -2,8 +2,7 @@ import { memo } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
-import { keywordAtom } from '../../../states/common';
-import { historyAtom } from '../../history/subs/history.recoil';
+import { historyAtom, keywordAtom } from '../../../states/common';
 
 const HomeHistory: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);

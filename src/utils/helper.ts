@@ -2,7 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
 import { useSetRecoilState } from 'recoil';
-import { historyAtom } from '../screens/history/subs/history.recoil';
+import { historyAtom, tabsAtom } from '../states/common';
+import { TabType } from '../types/tab.type';
 
 export const setAsyncStorage = async (key: string, value: any) => {
   try {
@@ -65,13 +66,14 @@ export const useSetHistory = () => {
   const setHistoryList = useSetRecoilState(historyAtom);
 
   return (data: History) =>
-    setHistoryList((prev: any[]) => {
+    setHistoryList(prev => {
       const { url, title } = data;
 
       const lastHistory = prev[0];
       const prevList = prev.slice(0);
+      const id = uuid.v4() as string;
       if (lastHistory?.url === url) {
-        const newHistory = prevList.shift();
+        prevList.shift();
         return [
           {
             title,
@@ -80,9 +82,9 @@ export const useSetHistory = () => {
             domain: getDomainWebsite(url),
             accessedAt: dayjs().valueOf(),
             favicon: '',
-            id: uuid.v4(),
+            id,
           },
-          ...newHistory,
+          ...prevList,
         ];
       }
       return [
@@ -93,9 +95,17 @@ export const useSetHistory = () => {
           domain: getDomainWebsite(url),
           accessedAt: dayjs().valueOf(),
           favicon: '',
-          id: uuid.v4(),
+          id,
         },
         ...prev,
       ];
     });
+};
+
+export const useAddTab = () => {
+  const setTabs = useSetRecoilState(tabsAtom);
+
+  return (data: TabType) => {
+    setTabs(prev => [data, ...prev]);
+  };
 };

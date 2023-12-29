@@ -5,7 +5,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilState } from 'recoil';
 import { NavigationBar } from '../../components';
 import { Text, TouchableOpacity, View } from '../../controls';
-import { historyAtom } from './subs/history.recoil';
+import { historyAtom } from '../../states/common';
 
 const History: React.FC = () => {
   const [historyList, setHistoryList] = useRecoilState(historyAtom);
