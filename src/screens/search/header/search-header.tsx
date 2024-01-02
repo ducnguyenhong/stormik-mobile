@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Logo from '../../../assets/images/logo.png';
 import { Image, TextInput, TouchableOpacity, View } from '../../../controls';
 import { darkModeAtom, keywordAtom, urlAtom } from '../../../states/common';
+import { checkIsUrl } from '../../../utils/helper';
 
 const SearchHeader: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
@@ -16,8 +17,11 @@ const SearchHeader: React.FC = () => {
   const isDarkMode = darkMode === 'dark';
 
   const onSearch = useCallback(() => {
+    const isUrl = checkIsUrl(currentUrl);
+    setUrl(
+      isUrl ? currentUrl : `https://www.google.com/search?q=${currentUrl}`,
+    );
     setKeyword(currentUrl);
-    setUrl(currentUrl);
     navigation.navigate('Home');
   }, [currentUrl, navigation, setKeyword, setUrl]);
 

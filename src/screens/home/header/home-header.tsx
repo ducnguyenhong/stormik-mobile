@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { memo, useCallback } from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
 import {
   darkModeAtom,
@@ -14,7 +14,7 @@ import Loading from './component/loading';
 
 const HomeHeader = () => {
   const [keyword, setKeyword] = useRecoilState(keywordAtom);
-  const setUrl = useSetRecoilState(urlAtom);
+  const [url, setUrl] = useRecoilState(urlAtom);
   const navigation = useNavigation<any>();
   const [tabs, setTabs] = useRecoilState(tabsAtom);
   const darkMode = useRecoilValue(darkModeAtom);
@@ -63,7 +63,7 @@ const HomeHeader = () => {
             borderWidth={0.5}
             py={9}
             onPress={() => navigation.navigate('Search')}>
-            <Text>{keyword}</Text>
+            <Text>{url}</Text>
           </TouchableOpacity>
         )}
         <View direction="row" align="center">

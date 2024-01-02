@@ -64,7 +64,7 @@ const HomeBody: React.FC = () => {
       <WebView
         ref={webViewRef}
         pullToRefreshEnabled
-        source={{ uri: keyword }}
+        source={{ uri: currentUrl }}
         onLoadEnd={onLoadEnd}
         incognito={type === 'INCOGNITO'}
         onNavigationStateChange={(e: WebViewNavigation) =>
