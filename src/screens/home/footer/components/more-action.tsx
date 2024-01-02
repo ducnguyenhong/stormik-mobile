@@ -7,12 +7,14 @@ import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../../controls';
 import { darkModeAtom } from '../../../../states/common';
+import { useAddTab } from '../../../../utils/helper';
 
 const MoreAction: React.FC = () => {
   const navigation = useNavigation<any>();
   const moreActionRef = useRef<ActionSheetRef>(null);
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
+  const addTab = useAddTab();
 
   const MORE_ACTION = [
     {
@@ -25,6 +27,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Thẻ mới',
       route: 'Page',
+      onPress: () => addTab(),
     },
     {
       icon: (
@@ -36,6 +39,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Ẩn danh',
       route: 'IncognitoPage',
+      onPress: () => addTab({ incognito: true }),
     },
     {
       icon: (
@@ -47,6 +51,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Lịch sử',
       route: 'History',
+      onPress: () => navigation.navigate('History'),
     },
     {
       icon: (
@@ -58,6 +63,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Dấu trang',
       route: 'Bookmark',
+      onPress: () => navigation.navigate('Bookmark'),
     },
     {
       icon: (
@@ -69,6 +75,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Chủ đề',
       route: 'Theme',
+      onPress: () => navigation.navigate('Theme'),
     },
     {
       icon: (
@@ -80,6 +87,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Tải xuống',
       route: 'Download',
+      onPress: () => navigation.navigate('Download'),
     },
     {
       icon: (
@@ -91,6 +99,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Cài đặt',
       route: 'Setting',
+      onPress: () => navigation.navigate('Setting'),
     },
     {
       icon: (
@@ -102,6 +111,7 @@ const MoreAction: React.FC = () => {
       ),
       name: 'Trợ giúp',
       route: 'Support',
+      onPress: () => navigation.navigate('Support'),
     },
   ];
 
@@ -135,13 +145,13 @@ const MoreAction: React.FC = () => {
               paddingTop: 12,
             }}
             renderItem={({ item }) => {
-              const { route, icon, name } = item;
+              const { route, icon, name, onPress } = item;
               return (
                 <TouchableOpacity
                   activeOpacity={0.5}
                   w="33.33%"
                   onPress={() => {
-                    navigation.navigate(route);
+                    onPress();
                     moreActionRef.current?.hide();
                   }}
                   py={15}

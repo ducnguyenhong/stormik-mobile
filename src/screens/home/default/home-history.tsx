@@ -72,7 +72,7 @@ const HomeHistory: React.FC = () => {
   );
 
   return (
-    <View direction="row" flexWrap="wrap" px={20} rowGap={15} mt={40}>
+    <View direction="row" flexWrap="wrap" px={10} rowGap={15} mt={40}>
       {HISTORY_LIST.map((item, index) => (
         <TouchableOpacity
           onPress={() => onOpenHistory(item)}
@@ -94,29 +94,32 @@ const HomeHistory: React.FC = () => {
           <Text fontSize={13}>{item.title}</Text>
         </TouchableOpacity>
       ))}
-      {historyList.slice(0, 4).map(item => (
-        <TouchableOpacity
-          onPress={() => onOpenHistory(item)}
-          key={item.id}
-          w="25%"
-          px={5}
-          align="center"
-          justify="center"
-          gap={5}>
-          <View
-            bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
-            w={50}
-            h={50}
-            borderRadius={30}
+      {historyList
+        .filter(i => !!i.url)
+        .slice(0, 4)
+        .map(item => (
+          <TouchableOpacity
+            onPress={() => onOpenHistory(item)}
+            key={item.id}
+            w="25%"
+            px={5}
             align="center"
-            justify="center">
-            <FaIcon name="globe" color="#b9b9b9" size={20} />
-          </View>
-          <Text fontSize={13} numberOfLines={1}>
-            {item.title}
-          </Text>
-        </TouchableOpacity>
-      ))}
+            justify="center"
+            gap={5}>
+            <View
+              bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
+              w={50}
+              h={50}
+              borderRadius={30}
+              align="center"
+              justify="center">
+              <FaIcon name="globe" color="#b9b9b9" size={20} />
+            </View>
+            <Text fontSize={13} numberOfLines={1}>
+              {item.title}
+            </Text>
+          </TouchableOpacity>
+        ))}
     </View>
   );
 };

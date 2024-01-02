@@ -1,9 +1,17 @@
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
-import { ScrollView, StatusBar } from 'react-native';
+import { BackHandler, ScrollView, StatusBar } from 'react-native';
 import uuid from 'react-native-uuid';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { SafeAreaView } from '../../controls';
-import { darkModeAtom, tabsAtom } from '../../states/common';
+import {
+  darkModeAtom,
+  historyAtom,
+  keywordAtom,
+  tabsAtom,
+  urlAtom,
+} from '../../states/common';
+import { useSetHistory } from '../../utils/helper';
 import HomeBody from './body/home-body';
 import HomeFooter from './footer';
 import HomeHeader from './header/home-header';
@@ -12,6 +20,13 @@ const Home = () => {
   const [tabs, setTabs] = useRecoilState(tabsAtom);
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
+  const history = useRecoilValue(historyAtom);
+  const lastHistory = history[1];
+  const setUrl = useSetRecoilState(urlAtom);
+  const setKeyword = useSetRecoilState(keywordAtom);
+  const setHistory = useSetHistory();
+  const isFocused = useIsFocused();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     if (!tabs.length) {
@@ -26,6 +41,29 @@ const Home = () => {
       ]);
     }
   }, [setTabs, tabs.length]);
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        if (!isFocused) {
+          navigation.goBack();
+          return true;
+        }
+        const { title: lastTitle, url: lastUrl } = lastHistory;
+        if (!lastUrl) {
+          setUrl('');
+          setKeyword('');
+          setHistory({ title: 'Trang chủ', url: '' });
+          return;
+        }
+        setHistory({ title: lastTitle, url: lastUrl });
+        return true;
+      },
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused, lastHistory, navigation, setHistory, setKeyword, setUrl]);
 
   return (
     <SafeAreaView>

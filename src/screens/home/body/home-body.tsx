@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import WebView from 'react-native-webview';
 import {
   WebViewErrorEvent,
@@ -6,14 +6,21 @@ import {
 } from 'react-native-webview/lib/WebViewTypes';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { View } from '../../../controls';
-import { keywordAtom, tabsAtom } from '../../../states/common';
+import { keywordAtom, tabsAtom, urlAtom } from '../../../states/common';
 import { useSetHistory } from '../../../utils/helper';
 import HomeDefault from '../default';
+import { refreshAtom } from '../subs/home.recoil';
 
 const HomeBody: React.FC = () => {
   const keyword = useRecoilValue(keywordAtom);
+  const currentUrl = useRecoilValue(urlAtom);
   const setHistory = useSetHistory();
   const [tabs, setTabs] = useRecoilState(tabsAtom);
+  const webViewRef = useRef<any>();
+  const [refresh, setRefresh] = useRecoilState(refreshAtom);
+
+  const currentTab = tabs.find(i => !!i.isActive);
+  const { type } = currentTab || {};
 
   const onLoadEnd = useCallback(
     (e: WebViewNavigationEvent | WebViewErrorEvent) => {
@@ -29,22 +36,17 @@ const HomeBody: React.FC = () => {
           return i;
         });
         setTabs(newsTabs);
+        setRefresh(false);
       }
     },
-    [keyword, setHistory, setTabs, tabs],
+    [keyword, setHistory, setRefresh, setTabs, tabs],
   );
 
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     () => {
-  //       backScreen ? navigation.navigate(backScreen) : navigation.goBack();
-  //       return true;
-  //     },
-  //   );
-
-  //   return () => backHandler.remove();
-  // }, [backScreen, navigation]);
+  useEffect(() => {
+    if (refresh && currentUrl) {
+      webViewRef.current.reload();
+    }
+  }, [currentUrl, refresh]);
 
   if (!keyword) {
     return <HomeDefault />;
@@ -52,7 +54,13 @@ const HomeBody: React.FC = () => {
 
   return (
     <View flex={1}>
-      <WebView source={{ uri: keyword }} onLoadEnd={onLoadEnd} />
+      <WebView
+        ref={webViewRef}
+        pullToRefreshEnabled
+        source={{ uri: keyword }}
+        onLoadEnd={onLoadEnd}
+        incognito={type === 'INCOGNITO'}
+      />
     </View>
   );
 };

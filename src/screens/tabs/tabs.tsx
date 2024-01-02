@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
-import uuid from 'react-native-uuid';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -56,16 +55,8 @@ const Tabs: React.FC = () => {
   );
 
   const onAddTab = useCallback(() => {
-    addTab({
-      id: uuid.v4() as string,
-      url: '',
-      title: 'Trang chủ',
-      isActive: true,
-      type: 'NORMAL',
-    });
-    setKeyword('');
-    setUrl('');
-  }, [addTab, setKeyword, setUrl]);
+    addTab();
+  }, [addTab]);
 
   return (
     <SafeAreaView>

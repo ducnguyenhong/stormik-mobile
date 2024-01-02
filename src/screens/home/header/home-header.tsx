@@ -50,9 +50,9 @@ const HomeHeader = () => {
       </TouchableOpacity>
       {!!keyword && (
         <TouchableOpacity
-          bgColor="#f5f5f5"
+          bgColor={isDarkMode ? '#404040' : '#f5f5f5'}
           borderRadius={30}
-          borderColor="#e6e6e6"
+          borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
           flex={1}
           px={15}
           borderWidth={0.5}

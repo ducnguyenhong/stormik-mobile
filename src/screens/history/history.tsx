@@ -35,7 +35,7 @@ const History: React.FC = () => {
         </View>
       )}
       <FlatList
-        data={historyList}
+        data={historyList.filter(i => !!i.url)}
         keyExtractor={(item: any) => item.id}
         contentContainerStyle={{ gap: 10, marginTop: 10 }}
         renderItem={({ item }) => {

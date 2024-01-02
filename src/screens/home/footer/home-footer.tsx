@@ -1,41 +1,71 @@
-import { Fragment, memo } from 'react';
-import uuid from 'react-native-uuid';
+import { isEmpty } from 'lodash';
+import { Fragment, memo, useMemo } from 'react';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { TouchableOpacity, View } from '../../../controls';
-import { darkModeAtom, keywordAtom, urlAtom } from '../../../states/common';
-import { useAddTab } from '../../../utils/helper';
+import {
+  darkModeAtom,
+  historyAtom,
+  keywordAtom,
+  urlAtom,
+} from '../../../states/common';
+import { useAddTab, useSetHistory } from '../../../utils/helper';
+import { refreshAtom } from '../subs/home.recoil';
 import MoreAction from './components/more-action';
 
 const HomeFooter: React.FC = () => {
   const addTab = useAddTab();
-  const setKeyword = useSetRecoilState(keywordAtom);
-  const setUrl = useSetRecoilState(urlAtom);
+  const [url, setUrl] = useRecoilState(urlAtom);
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
+  const setRefresh = useSetRecoilState(refreshAtom);
+  const setKeyword = useSetRecoilState(keywordAtom);
+  const history = useRecoilValue(historyAtom);
+  const setHistory = useSetHistory();
+  const lastHistory = history[1];
+
+  const backIconColor = useMemo(() => {
+    const disabled = isEmpty(lastHistory) || !url;
+    if (isDarkMode) {
+      return disabled ? '#828282' : '#f2f2f2';
+    }
+    return disabled ? '#d9d9d9' : '#828282';
+  }, [isDarkMode, lastHistory, url]);
+
+  const refreshIconColor = useMemo(() => {
+    const disabled = !url;
+    if (isDarkMode) {
+      return disabled ? '#828282' : '#f2f2f2';
+    }
+    return disabled ? '#d9d9d9' : '#828282';
+  }, [isDarkMode, url]);
 
   const ACTIONS = [
     {
-      icon: (
-        <McIcon
-          name="arrow-left"
-          size={25}
-          color={isDarkMode ? '#f2f2f2' : '#828282'}
-        />
-      ),
+      icon: <McIcon name="arrow-left" size={25} color={backIconColor} />,
       name: 'Quay lại',
-      onPress: () => {},
+      onPress: () => {
+        const { title: lastTitle, url: lastUrl } = lastHistory;
+        if (!lastUrl) {
+          setUrl('');
+          setKeyword('');
+          setHistory({ title: 'Trang chủ', url: '' });
+          return;
+        }
+        setHistory({ title: lastTitle, url: lastUrl });
+      },
+      disabled: isEmpty(lastHistory) || !url,
     },
     {
-      icon: (
-        <McIcon
-          name="refresh"
-          size={25}
-          color={isDarkMode ? '#f2f2f2' : '#828282'}
-        />
-      ),
+      icon: <McIcon name="refresh" size={25} color={refreshIconColor} />,
       name: 'Tải lại',
-      onPress: () => {},
+      onPress: () => {
+        if (!url) {
+          return;
+        }
+        setRefresh(true);
+      },
+      disabled: !url,
     },
     {
       icon: (
@@ -57,17 +87,7 @@ const HomeFooter: React.FC = () => {
         />
       ),
       name: 'Thẻ mới',
-      onPress: () => {
-        addTab({
-          id: uuid.v4() as string,
-          url: '',
-          title: 'Trang chủ',
-          isActive: true,
-          type: 'NORMAL',
-        });
-        setKeyword('');
-        setUrl('');
-      },
+      onPress: () => addTab(),
     },
     {
       name: 'Thêm',
@@ -85,7 +105,7 @@ const HomeFooter: React.FC = () => {
       borderTopWidth={0.3}
       borderColor="#ccc">
       {ACTIONS.map(item => {
-        const { icon, name, onPress, custom } = item;
+        const { icon, name, onPress, custom, disabled } = item;
 
         if (custom) {
           return <Fragment key={name}>{custom}</Fragment>;
@@ -93,13 +113,11 @@ const HomeFooter: React.FC = () => {
 
         return (
           <TouchableOpacity
-            onPress={() => {
-              onPress();
-              // moreActionRef.current?.hide();
-            }}
+            onPress={() => onPress()}
+            disabled={disabled}
             py={10}
             px={20}
-            activeOpacity={0.3}
+            activeOpacity={disabled ? 1 : 0.3}
             key={name}
             direction="row"
             gap={20}
