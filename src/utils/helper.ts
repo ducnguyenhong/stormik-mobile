@@ -2,7 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
 import { useSetRecoilState } from 'recoil';
-import { historyAtom, keywordAtom, tabsAtom, urlAtom } from '../states/common';
+import {
+  historyAtom,
+  keywordAtom,
+  loadingAtom,
+  tabsAtom,
+  urlAtom,
+} from '../states/common';
 import { TabType } from '../types/tab.type';
 
 export const setAsyncStorage = async (key: string, value: any) => {
@@ -107,6 +113,7 @@ export const useAddTab = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
   const setUrl = useSetRecoilState(urlAtom);
   const setHistory = useSetHistory();
+  const setLoading = useSetRecoilState(loadingAtom);
 
   return (data?: { incognito?: boolean }) => {
     const { incognito } = data || {};
@@ -123,5 +130,6 @@ export const useAddTab = () => {
     setKeyword('');
     setUrl('');
     setHistory({ title: 'Trang chủ', url: '' });
+    setLoading(undefined);
   };
 };

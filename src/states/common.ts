@@ -32,3 +32,8 @@ export const historyAtom = atom<HistoryType[]>({
   default: [],
   effects: [asyncStorageEffect('history')],
 });
+
+export const loadingAtom = atom<boolean | undefined>({
+  key: 'LOADING_ATOM',
+  default: undefined,
+});

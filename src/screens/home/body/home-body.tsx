@@ -2,11 +2,17 @@ import { memo, useCallback, useEffect, useRef } from 'react';
 import WebView from 'react-native-webview';
 import {
   WebViewErrorEvent,
+  WebViewNavigation,
   WebViewNavigationEvent,
 } from 'react-native-webview/lib/WebViewTypes';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { View } from '../../../controls';
-import { keywordAtom, tabsAtom, urlAtom } from '../../../states/common';
+import {
+  keywordAtom,
+  loadingAtom,
+  tabsAtom,
+  urlAtom,
+} from '../../../states/common';
 import { useSetHistory } from '../../../utils/helper';
 import HomeDefault from '../default';
 import { refreshAtom } from '../subs/home.recoil';
@@ -18,6 +24,7 @@ const HomeBody: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsAtom);
   const webViewRef = useRef<any>();
   const [refresh, setRefresh] = useRecoilState(refreshAtom);
+  const setLoading = useSetRecoilState(loadingAtom);
 
   const currentTab = tabs.find(i => !!i.isActive);
   const { type } = currentTab || {};
@@ -60,6 +67,9 @@ const HomeBody: React.FC = () => {
         source={{ uri: keyword }}
         onLoadEnd={onLoadEnd}
         incognito={type === 'INCOGNITO'}
+        onNavigationStateChange={(e: WebViewNavigation) =>
+          setLoading(e.loading)
+        }
       />
     </View>
   );
