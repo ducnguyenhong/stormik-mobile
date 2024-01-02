@@ -3,13 +3,18 @@ import Logo from 'assets/images/logo.png';
 import { memo } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import { useRecoilValue } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
+import { darkModeAtom } from '../../../states/common';
 import HomeHistory from './home-history';
 
 const HomeDefault: React.FC = () => {
   const navigation = useNavigation<any>();
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
+
   return (
-    <View bgColor="#FFF" flex={1}>
+    <View bgColor={isDarkMode ? '#1a1a1a' : '#FFF'} flex={1}>
       <View
         justify="center"
         align="center"
@@ -30,21 +35,29 @@ const HomeDefault: React.FC = () => {
           align="center"
           justify="space-between"
           activeOpacity={0.5}
-          bgColor="#f0f0f4"
+          bgColor={isDarkMode ? '#828282' : '#f0f0f4'}
           borderRadius={30}
-          borderColor="#e6e6e6"
+          borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
           px={15}
           borderWidth={0.5}
           py={14}
           onPress={() => navigation.navigate('Search')}>
           <View direction="row" align="center" gap={8}>
-            <Ionicon name="search" color="#a6a6a6" size={21} />
-            <Text color="#828282" fontSize={15}>
+            <Ionicon
+              name="search"
+              color={isDarkMode ? '#b9b9b9' : '#a6a6a6'}
+              size={21}
+            />
+            <Text color={isDarkMode ? '#CCC' : '#828282'} fontSize={15}>
               Tìm kiếm hoặc nhập URL
             </Text>
           </View>
           <TouchableOpacity>
-            <FaIcon name="microphone" size={18} color="#a6a6a6" />
+            <FaIcon
+              name="microphone"
+              size={18}
+              color={isDarkMode ? '#b9b9b9' : '#a6a6a6'}
+            />
           </TouchableOpacity>
         </TouchableOpacity>
       </View>

@@ -1,25 +1,34 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList } from 'react-native';
 import uuid from 'react-native-uuid';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { Text, TouchableOpacity, View } from '../../controls';
-import { keywordAtom, tabsAtom } from '../../states/common';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { SafeAreaView, Text, TouchableOpacity, View } from '../../controls';
+import {
+  darkModeAtom,
+  keywordAtom,
+  tabsAtom,
+  urlAtom,
+} from '../../states/common';
 import { TabType } from '../../types/tab.type';
 import { useAddTab } from '../../utils/helper';
 
 const Tabs: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsAtom);
   const setKeyword = useSetRecoilState(keywordAtom);
+  const setUrl = useSetRecoilState(urlAtom);
   const addTab = useAddTab();
   const navigation = useNavigation<any>();
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
 
   const onChangeTab = useCallback(
     (item: TabType) => {
       setKeyword(item.url);
+      setUrl(item.url);
       const newTabs = tabs.map(t => {
         if (t.id === item.id) {
           return {
@@ -35,7 +44,7 @@ const Tabs: React.FC = () => {
       setTabs(newTabs);
       navigation.navigate('Home');
     },
-    [navigation, setKeyword, setTabs, tabs],
+    [navigation, setKeyword, setTabs, setUrl, tabs],
   );
 
   const onDeleteTab = useCallback(
@@ -55,10 +64,11 @@ const Tabs: React.FC = () => {
       type: 'NORMAL',
     });
     setKeyword('');
-  }, [addTab, setKeyword]);
+    setUrl('');
+  }, [addTab, setKeyword, setUrl]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF' }}>
+    <SafeAreaView>
       <View
         px={15}
         align="center"
@@ -72,7 +82,11 @@ const Tabs: React.FC = () => {
           align="center"
           gap={5}
           onPress={onAddTab}>
-          <Ionicon name="add" size={25} />
+          <Ionicon
+            name="add"
+            size={25}
+            color={isDarkMode ? '#f2f2f2' : '#4f4f4f'}
+          />
           <Text>Thẻ mới</Text>
         </TouchableOpacity>
 

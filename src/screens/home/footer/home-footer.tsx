@@ -1,34 +1,61 @@
 import { Fragment, memo } from 'react';
 import uuid from 'react-native-uuid';
 import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { TouchableOpacity, View } from '../../../controls';
-import { keywordAtom } from '../../../states/common';
+import { darkModeAtom, keywordAtom, urlAtom } from '../../../states/common';
 import { useAddTab } from '../../../utils/helper';
 import MoreAction from './components/more-action';
 
 const HomeFooter: React.FC = () => {
   const addTab = useAddTab();
   const setKeyword = useSetRecoilState(keywordAtom);
+  const setUrl = useSetRecoilState(urlAtom);
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
 
   const ACTIONS = [
     {
-      icon: <McIcon name="arrow-left" size={25} color="#828282" />,
+      icon: (
+        <McIcon
+          name="arrow-left"
+          size={25}
+          color={isDarkMode ? '#f2f2f2' : '#828282'}
+        />
+      ),
       name: 'Quay lại',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="refresh" size={25} color="#828282" />,
+      icon: (
+        <McIcon
+          name="refresh"
+          size={25}
+          color={isDarkMode ? '#f2f2f2' : '#828282'}
+        />
+      ),
       name: 'Tải lại',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="arrow-right" size={25} color="#828282" />,
+      icon: (
+        <McIcon
+          name="arrow-right"
+          size={25}
+          color={isDarkMode ? '#f2f2f2' : '#828282'}
+        />
+      ),
       name: 'Tiến',
       onPress: () => {},
     },
     {
-      icon: <McIcon name="plus" size={27} color="#828282" />,
+      icon: (
+        <McIcon
+          name="plus"
+          size={27}
+          color={isDarkMode ? '#f2f2f2' : '#828282'}
+        />
+      ),
       name: 'Thẻ mới',
       onPress: () => {
         addTab({
@@ -39,6 +66,7 @@ const HomeFooter: React.FC = () => {
           type: 'NORMAL',
         });
         setKeyword('');
+        setUrl('');
       },
     },
     {
@@ -53,7 +81,7 @@ const HomeFooter: React.FC = () => {
       direction="row"
       align="center"
       justify="space-between"
-      bgColor="#FFF"
+      bgColor={isDarkMode ? '#1a1a1a' : '#FFF'}
       borderTopWidth={0.3}
       borderColor="#ccc">
       {ACTIONS.map(item => {

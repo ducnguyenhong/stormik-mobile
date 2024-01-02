@@ -2,13 +2,22 @@ import { memo, useCallback } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Image, Text, TouchableOpacity, View } from '../../../controls';
-import { historyAtom, keywordAtom, tabsAtom } from '../../../states/common';
+import {
+  darkModeAtom,
+  historyAtom,
+  keywordAtom,
+  tabsAtom,
+  urlAtom,
+} from '../../../states/common';
 import { HistoryType } from '../../../types/history.type';
 
 const HomeHistory: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
+  const setUrl = useSetRecoilState(urlAtom);
   const historyList = useRecoilValue(historyAtom);
   const [tabs, setTabs] = useRecoilState(tabsAtom);
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
 
   const HISTORY_LIST: HistoryType[] = [
     {
@@ -57,8 +66,9 @@ const HomeHistory: React.FC = () => {
       });
       setTabs(newsTabs);
       setKeyword(url);
+      setUrl(url);
     },
-    [setKeyword, setTabs, tabs],
+    [setKeyword, setTabs, setUrl, tabs],
   );
 
   return (
@@ -73,7 +83,7 @@ const HomeHistory: React.FC = () => {
           justify="center"
           gap={5}>
           <View
-            bgColor="#f2f2f2"
+            bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
             w={50}
             h={50}
             borderRadius={30}
@@ -94,7 +104,7 @@ const HomeHistory: React.FC = () => {
           justify="center"
           gap={5}>
           <View
-            bgColor="#f2f2f2"
+            bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
             w={50}
             h={50}
             borderRadius={30}

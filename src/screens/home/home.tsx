@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
-import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import uuid from 'react-native-uuid';
-import { useRecoilState } from 'recoil';
-import { tabsAtom } from '../../states/common';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { SafeAreaView } from '../../controls';
+import { darkModeAtom, tabsAtom } from '../../states/common';
 import HomeBody from './body/home-body';
 import HomeFooter from './footer';
 import HomeHeader from './header/home-header';
 
 const Home = () => {
   const [tabs, setTabs] = useRecoilState(tabsAtom);
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
 
   useEffect(() => {
     if (!tabs.length) {
@@ -25,8 +28,11 @@ const Home = () => {
   }, [setTabs, tabs.length]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
+    <SafeAreaView>
+      <StatusBar
+        backgroundColor={isDarkMode ? '#1a1a1a' : '#FFF'}
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+      />
       <HomeHeader />
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <HomeBody />

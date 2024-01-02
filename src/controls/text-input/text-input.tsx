@@ -1,8 +1,22 @@
 import { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
 import { TextInput } from 'react-native';
+import { useRecoilValue } from 'recoil';
+import { darkModeAtom } from '../../states/common';
 import { TextInputProps } from './text-input.type';
 
 const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
+  const darkMode = useRecoilValue(darkModeAtom);
+  const isDarkMode = darkMode === 'dark';
+  const defaultColor = useMemo(
+    () => (isDarkMode ? '#f2f2f2' : '#4f4f4f'),
+    [isDarkMode],
+  );
+
+  const defaultBgColor = useMemo(
+    () => (isDarkMode ? '#4d4d4d' : '#FFF'),
+    [isDarkMode],
+  );
+
   const {
     w,
     h,
@@ -20,7 +34,7 @@ const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
     pb,
     pr,
     pl,
-    bgColor,
+    bgColor = defaultBgColor,
     borderRadius = 8,
     multiline,
     borderWidth = multiline ? 0 : 1,
@@ -49,7 +63,7 @@ const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
   const defaultStyle = {
     fontFamily,
     fontSize: 14,
-    color: '#382915',
+    color: defaultColor,
     backgroundColor: bgColor,
     borderRadius,
     borderWidth,
