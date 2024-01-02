@@ -24,6 +24,8 @@ const Tabs: React.FC = () => {
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
 
+  const tabData = tabs.filter(i => i.type === 'NORMAL');
+
   const onChangeTab = useCallback(
     (item: TabType) => {
       setKeyword(item.url);
@@ -87,7 +89,7 @@ const Tabs: React.FC = () => {
       </View>
       <FlatList
         numColumns={2}
-        data={tabs.filter(i => i.type === 'NORMAL')}
+        data={tabData}
         keyExtractor={(_, index) => `${index}`}
         contentContainerStyle={{
           gap: 15,
@@ -119,13 +121,15 @@ const Tabs: React.FC = () => {
                     {title}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={() => onDeleteTab(id)} p={5}>
-                  <Ionicon
-                    name="close"
-                    color={isActive ? '#FFF' : '#4f4f4f'}
-                    size={20}
-                  />
-                </TouchableOpacity>
+                {tabData.length > 1 && (
+                  <TouchableOpacity onPress={() => onDeleteTab(id)} p={5}>
+                    <Ionicon
+                      name="close"
+                      color={isActive ? '#FFF' : '#4f4f4f'}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
               <View h={150} bgColor="#FFF" mx={8} mb={8} borderRadius={5} p={5}>
                 <Text>aaaa</Text>
