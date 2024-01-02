@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
+  darkModeAtom,
   historyAtom,
   keywordAtom,
   loadingAtom,
@@ -66,6 +68,7 @@ export const asyncStorageEffect = (key: string) => {
 interface History {
   url: string;
   title: string;
+  type?: 'URL' | 'SEARCH';
 }
 
 export const useSetHistory = () => {
@@ -73,7 +76,7 @@ export const useSetHistory = () => {
 
   return (data: History) =>
     setHistoryList(prev => {
-      const { url, title } = data;
+      const { url, title, type = 'URL' } = data;
 
       const lastHistory = prev[0];
       const prevList = prev.slice(0);
@@ -83,7 +86,7 @@ export const useSetHistory = () => {
         return [
           {
             title,
-            type: 'URL', // 'SEARCH'
+            type,
             url,
             domain: getDomainWebsite(url),
             accessedAt: dayjs().valueOf(),
@@ -96,7 +99,7 @@ export const useSetHistory = () => {
       return [
         {
           title,
-          type: 'URL', // 'SEARCH'
+          type,
           url,
           domain: getDomainWebsite(url),
           accessedAt: dayjs().valueOf(),
@@ -114,6 +117,7 @@ export const useAddTab = () => {
   const setUrl = useSetRecoilState(urlAtom);
   const setHistory = useSetHistory();
   const setLoading = useSetRecoilState(loadingAtom);
+  const setDarkMode = useSetRecoilState(darkModeAtom);
 
   return (data?: { incognito?: boolean }) => {
     const { incognito } = data || {};
@@ -130,6 +134,7 @@ export const useAddTab = () => {
     setKeyword('');
     setUrl('');
     setHistory({ title: 'Trang chủ', url: '' });
+    setDarkMode('dark');
     setLoading(undefined);
   };
 };
@@ -138,3 +143,25 @@ export const checkIsUrl = (text: string) =>
   !!text.match(
     /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g,
   );
+
+export const useGoHome = () => {
+  const setKeyword = useSetRecoilState(keywordAtom);
+  const setUrl = useSetRecoilState(urlAtom);
+  const navigation = useNavigation<any>();
+  const [tabs, setTabs] = useRecoilState(tabsAtom);
+  const setHistory = useSetHistory();
+
+  return () => {
+    setKeyword('');
+    setUrl('');
+    const newsTabs = tabs.map(i => {
+      if (i.isActive) {
+        return { ...i, url: '', title: 'Trang chủ' };
+      }
+      return i;
+    });
+    setTabs(newsTabs);
+    setHistory({ title: 'Trang chủ', url: '' });
+    navigation.navigate('Home');
+  };
+};

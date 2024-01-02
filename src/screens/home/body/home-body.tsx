@@ -13,7 +13,7 @@ import {
   tabsAtom,
   urlAtom,
 } from '../../../states/common';
-import { useSetHistory } from '../../../utils/helper';
+import { checkIsUrl, useSetHistory } from '../../../utils/helper';
 import HomeDefault from '../default';
 import { refreshAtom } from '../subs/home.recoil';
 
@@ -25,7 +25,6 @@ const HomeBody: React.FC = () => {
   const webViewRef = useRef<any>();
   const [refresh, setRefresh] = useRecoilState(refreshAtom);
   const setLoading = useSetRecoilState(loadingAtom);
-
   const currentTab = tabs.find(i => !!i.isActive);
   const { type } = currentTab || {};
 
@@ -34,7 +33,8 @@ const HomeBody: React.FC = () => {
       const { title, url } = e.nativeEvent;
 
       if (keyword) {
-        setHistory({ title, url });
+        const isUrl = checkIsUrl(keyword);
+        setHistory({ title, url, type: isUrl ? 'URL' : 'SEARCH' });
 
         const newsTabs = tabs.map(i => {
           if (i.isActive) {

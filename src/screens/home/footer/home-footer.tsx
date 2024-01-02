@@ -45,14 +45,14 @@ const HomeFooter: React.FC = () => {
       icon: <McIcon name="arrow-left" size={25} color={backIconColor} />,
       name: 'Quay lại',
       onPress: () => {
-        const { title: lastTitle, url: lastUrl } = lastHistory;
+        const { title: lastTitle, url: lastUrl, type: lastType } = lastHistory;
         if (!lastUrl) {
           setUrl('');
           setKeyword('');
           setHistory({ title: 'Trang chủ', url: '' });
           return;
         }
-        setHistory({ title: lastTitle, url: lastUrl });
+        setHistory({ title: lastTitle, url: lastUrl, type: lastType });
       },
       disabled: isEmpty(lastHistory) || !url,
     },

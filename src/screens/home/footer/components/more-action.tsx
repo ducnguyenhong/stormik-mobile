@@ -7,7 +7,7 @@ import McIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../../controls';
 import { darkModeAtom } from '../../../../states/common';
-import { useAddTab } from '../../../../utils/helper';
+import { useAddTab, useGoHome } from '../../../../utils/helper';
 
 const MoreAction: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -15,6 +15,7 @@ const MoreAction: React.FC = () => {
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
   const addTab = useAddTab();
+  const goHome = useGoHome();
 
   const MORE_ACTION = [
     {
@@ -112,6 +113,18 @@ const MoreAction: React.FC = () => {
       name: 'Trợ giúp',
       route: 'Support',
       onPress: () => navigation.navigate('Support'),
+    },
+    {
+      icon: (
+        <McIcon
+          name="home"
+          size={25}
+          color={isDarkMode ? '#f2f2f2' : '#55bd42'}
+        />
+      ),
+      name: 'Trang chủ',
+      route: 'Home',
+      onPress: () => goHome(),
     },
   ];
 

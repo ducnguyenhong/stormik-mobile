@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import LogoIncognito from 'assets/images/incognito.png';
 import Logo from 'assets/images/logo.png';
 import { memo } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
@@ -20,13 +21,27 @@ const HomeDefault: React.FC = () => {
         align="center"
         gap={5}
         mt={20}
-        mb={50}
+        mb={40}
         // direction="row"
       >
-        <Image source={Logo} style={{ width: 100, height: 100 }} />
-        {/* <Text fontSize={18} color="#55bd42">
-          Stormik Browser - Trình duyệt siêu tốc
-        </Text> */}
+        {isDarkMode ? (
+          <View
+            bgColor="#ccc"
+            borderRadius={100}
+            w={100}
+            h={100}
+            justify="center"
+            align="center">
+            <Image source={LogoIncognito} style={{ width: 60, height: 60 }} />
+          </View>
+        ) : (
+          <Image source={Logo} style={{ width: 100, height: 100 }} />
+        )}
+        {isDarkMode && (
+          <Text fontSize={15} color="#ccc" mt={10}>
+            Bạn đang trong chế độ ẩn danh
+          </Text>
+        )}
       </View>
 
       <View px={25}>

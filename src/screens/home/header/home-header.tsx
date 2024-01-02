@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { memo, useCallback } from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
 import {
   darkModeAtom,
@@ -9,31 +9,21 @@ import {
   tabsAtom,
   urlAtom,
 } from '../../../states/common';
-import { useSetHistory } from '../../../utils/helper';
+import { useGoHome } from '../../../utils/helper';
 import Loading from './component/loading';
 
 const HomeHeader = () => {
-  const [keyword, setKeyword] = useRecoilState(keywordAtom);
-  const [url, setUrl] = useRecoilState(urlAtom);
+  const keyword = useRecoilValue(keywordAtom);
+  const url = useRecoilValue(urlAtom);
   const navigation = useNavigation<any>();
-  const [tabs, setTabs] = useRecoilState(tabsAtom);
+  const tabs = useRecoilValue(tabsAtom);
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
-  const setHistory = useSetHistory();
+  const goHome = useGoHome();
 
   const onPressHome = useCallback(() => {
-    setKeyword('');
-    setUrl('');
-    const newsTabs = tabs.map(i => {
-      if (i.isActive) {
-        return { ...i, url: '', title: 'Trang chủ' };
-      }
-      return i;
-    });
-    setTabs(newsTabs);
-    setHistory({ title: 'Trang chủ', url: '' });
-    navigation.navigate('Home');
-  }, [navigation, setHistory, setKeyword, setTabs, setUrl, tabs]);
+    goHome();
+  }, [goHome]);
 
   return (
     <View position="relative">
