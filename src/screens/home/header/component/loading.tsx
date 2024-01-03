@@ -22,7 +22,7 @@ const Loading: React.FC = () => {
       if (loading === false && loadingWidth < 100) {
         setLoadingWidth(prev => (prev < 100 ? prev + 1 : 100));
       }
-    }, 10);
+    }, 3);
 
     return () => clearInterval(setLoadingInterval);
   }, [loading, loadingWidth]);
@@ -37,7 +37,7 @@ const Loading: React.FC = () => {
   return (
     <View
       w={loadingWidth === 100 ? '0%' : `${loadingWidth}%`}
-      h={1.5}
+      h={1}
       bgColor="green"
       position="absolute"
       bottom={0}

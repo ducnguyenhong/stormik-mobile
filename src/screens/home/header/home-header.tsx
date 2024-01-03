@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { memo, useCallback } from 'react';
+import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilValue } from 'recoil';
 import { Text, TouchableOpacity, View } from '../../../controls';
@@ -20,6 +21,7 @@ const HomeHeader = () => {
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
   const goHome = useGoHome();
+  const isHttps = url.startsWith('https://');
 
   const onPressHome = useCallback(() => {
     goHome();
@@ -36,7 +38,7 @@ const HomeHeader = () => {
         borderColor="#ccc"
         bgColor={isDarkMode ? '#1a1a1a' : '#FFF'}
         justify={keyword ? 'flex-start' : 'space-between'}>
-        <TouchableOpacity px={20} onPress={onPressHome}>
+        <TouchableOpacity pl={20} pr={15} onPress={onPressHome}>
           <Ionicon
             name="home"
             size={18}
@@ -49,18 +51,29 @@ const HomeHeader = () => {
             borderRadius={30}
             borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
             flex={1}
-            px={15}
+            pl={15}
+            pr={15}
             borderWidth={0.5}
             py={9}
+            direction="row"
+            align="center"
+            gap={6}
             onPress={() => navigation.navigate('Search')}>
-            <Text>{url}</Text>
+            <FaIcon
+              name="lock"
+              size={17}
+              color={isHttps ? '#0fa30f' : '#828282'}
+            />
+            <Text mt={-1} flex={1} numberOfLines={1}>
+              {url}
+            </Text>
           </TouchableOpacity>
         )}
         <View direction="row" align="center">
           <TouchableOpacity
             onPress={() => navigation.navigate('Tabs')}
-            pl={10}
-            pr={25}
+            pl={15}
+            pr={20}
             py={5}>
             <View
               borderWidth={1.5}

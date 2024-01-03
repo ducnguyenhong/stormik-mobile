@@ -19,7 +19,7 @@ import { refreshAtom } from '../subs/home.recoil';
 
 const HomeBody: React.FC = () => {
   const keyword = useRecoilValue(keywordAtom);
-  const currentUrl = useRecoilValue(urlAtom);
+  const [currentUrl, setCurrentUrl] = useRecoilState(urlAtom);
   const setHistory = useSetHistory();
   const [tabs, setTabs] = useRecoilState(tabsAtom);
   const webViewRef = useRef<any>();
@@ -32,19 +32,17 @@ const HomeBody: React.FC = () => {
     (e: WebViewNavigationEvent | WebViewErrorEvent) => {
       const { title, url } = e.nativeEvent;
 
-      if (keyword) {
-        const isUrl = checkIsUrl(keyword);
-        setHistory({ title, url, type: isUrl ? 'URL' : 'SEARCH' });
+      const isUrl = checkIsUrl(keyword);
+      setHistory({ title, url, type: isUrl ? 'URL' : 'SEARCH' });
 
-        const newsTabs = tabs.map(i => {
-          if (i.isActive) {
-            return { ...i, url, title };
-          }
-          return i;
-        });
-        setTabs(newsTabs);
-        setRefresh(false);
-      }
+      const newsTabs = tabs.map(i => {
+        if (i.isActive) {
+          return { ...i, url, title };
+        }
+        return i;
+      });
+      setTabs(newsTabs);
+      setRefresh(false);
     },
     [keyword, setHistory, setRefresh, setTabs, tabs],
   );
@@ -67,9 +65,11 @@ const HomeBody: React.FC = () => {
         source={{ uri: currentUrl }}
         onLoadEnd={onLoadEnd}
         incognito={type === 'INCOGNITO'}
-        onNavigationStateChange={(e: WebViewNavigation) =>
-          setLoading(e.loading)
-        }
+        onNavigationStateChange={(e: WebViewNavigation) => {
+          const { url, loading } = e;
+          setLoading(loading);
+          setCurrentUrl(url);
+        }}
       />
     </View>
   );

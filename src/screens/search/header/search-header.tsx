@@ -17,6 +17,10 @@ const SearchHeader: React.FC = () => {
   const isDarkMode = darkMode === 'dark';
 
   const onSearch = useCallback(() => {
+    if (!currentUrl) {
+      navigation.navigate('Home');
+      return;
+    }
     const isUrl = checkIsUrl(currentUrl);
     setUrl(
       isUrl ? currentUrl : `https://www.google.com/search?q=${currentUrl}`,

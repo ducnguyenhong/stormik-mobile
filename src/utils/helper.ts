@@ -130,11 +130,13 @@ export const useAddTab = () => {
       type: incognito ? 'INCOGNITO' : 'NORMAL',
     };
 
+    if (incognito) {
+      setDarkMode('dark');
+    }
     setTabs(prev => [newTab, ...prev.map(i => ({ ...i, isActive: false }))]);
     setKeyword('');
     setUrl('');
     setHistory({ title: 'Trang chủ', url: '' });
-    setDarkMode('dark');
     setLoading(undefined);
   };
 };

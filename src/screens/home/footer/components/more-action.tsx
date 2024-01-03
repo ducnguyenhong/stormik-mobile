@@ -145,7 +145,7 @@ const MoreAction: React.FC = () => {
         />
       </TouchableOpacity>
 
-      <ActionSheet ref={moreActionRef} useBottomSafeAreaPadding>
+      <ActionSheet ref={moreActionRef}>
         <View direction="row" bgColor={isDarkMode ? '#333333' : '#FFF'}>
           <FlatList
             data={MORE_ACTION}
@@ -154,7 +154,7 @@ const MoreAction: React.FC = () => {
             contentContainerStyle={{
               borderBottomWidth: 0.5,
               borderColor: '#e6e6e6',
-              paddingBottom: 15,
+              paddingBottom: 25,
               paddingTop: 12,
             }}
             renderItem={({ item }) => {
