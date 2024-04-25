@@ -4,6 +4,6 @@ export interface HistoryType {
   url: string;
   domain: string;
   accessedAt?: number;
-  favicon?: string;
+  favicon: string;
   id: string;
 }

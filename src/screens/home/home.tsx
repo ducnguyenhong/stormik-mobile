@@ -13,7 +13,6 @@ import {
 } from '../../states/common';
 import { useSetHistory } from '../../utils/helper';
 import HomeBody from './body/home-body';
-import HomeFooter from './footer';
 import HomeHeader from './header/home-header';
 
 const Home = () => {
@@ -75,7 +74,7 @@ const Home = () => {
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <HomeBody />
       </ScrollView>
-      <HomeFooter />
+      {/* <HomeFooter /> */}
     </SafeAreaView>
   );
 };

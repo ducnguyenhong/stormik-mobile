@@ -116,7 +116,7 @@ const Tabs: React.FC = () => {
                   <Text
                     flex={1}
                     numberOfLines={1}
-                    fontFamily="Inter-SemiBold"
+                    fontFamily="SemiBold"
                     color={isActive ? '#FFF' : undefined}>
                     {title}
                   </Text>

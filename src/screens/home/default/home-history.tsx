@@ -1,15 +1,15 @@
-import { memo, useCallback } from 'react';
-import FaIcon from 'react-native-vector-icons/FontAwesome';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { Image, Text, TouchableOpacity, View } from '../../../controls';
+import { Image, Text, TouchableOpacity, View } from '@src//controls';
 import {
   darkModeAtom,
   historyAtom,
   keywordAtom,
   tabsAtom,
   urlAtom,
-} from '../../../states/common';
-import { HistoryType } from '../../../types/history.type';
+} from '@src/states/common';
+import { HistoryType } from '@src/types/history.type';
+import { memo, useCallback } from 'react';
+import FaIcon from 'react-native-vector-icons/FontAwesome';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const HomeHistory: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
@@ -21,7 +21,8 @@ const HomeHistory: React.FC = () => {
 
   const HISTORY_LIST: HistoryType[] = [
     {
-      favicon: 'https://www.24h.com.vn/favicon.ico',
+      favicon:
+        'https://upload.wikimedia.org/wikipedia/vi/thumb/6/6b/Logo_trang_24h.png/220px-Logo_trang_24h.png',
       title: '24h',
       url: 'https://www.24h.com.vn',
       id: '1',
@@ -72,7 +73,7 @@ const HomeHistory: React.FC = () => {
   );
 
   return (
-    <View direction="row" flexWrap="wrap" px={10} rowGap={15} mt={40}>
+    <View direction="row" flexWrap="wrap" px={10} rowGap={15} mt={60}>
       {HISTORY_LIST.map((item, index) => (
         <TouchableOpacity
           onPress={() => onOpenHistory(item)}
@@ -83,15 +84,25 @@ const HomeHistory: React.FC = () => {
           justify="center"
           gap={5}>
           <View
-            bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
-            w={50}
-            h={50}
-            borderRadius={30}
+            bgColor={isDarkMode ? '#828282' : '#FFF'}
+            w={55}
+            h={55}
+            borderRadius={13}
             align="center"
-            justify="center">
-            <Image url={item.favicon} w={20} h={20} />
+            justify="center"
+            boxShadow={{
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.5,
+              shadowRadius: 1,
+              elevation: 1.5,
+            }}>
+            <Image url={item.favicon} w={28} h={28} resizeMode="cover" />
           </View>
-          <Text fontSize={13}>{item.title}</Text>
+          <Text fontSize={12}>{item.title}</Text>
         </TouchableOpacity>
       ))}
       {historyList
@@ -107,15 +118,25 @@ const HomeHistory: React.FC = () => {
             justify="center"
             gap={5}>
             <View
-              bgColor={isDarkMode ? '#828282' : '#f2f2f2'}
-              w={50}
-              h={50}
-              borderRadius={30}
+              bgColor={isDarkMode ? '#828282' : '#FFF'}
+              w={55}
+              h={55}
+              borderRadius={13}
               align="center"
-              justify="center">
-              <FaIcon name="globe" color="#b9b9b9" size={20} />
+              justify="center"
+              boxShadow={{
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.5,
+                shadowRadius: 1,
+                elevation: 1.5,
+              }}>
+              <FaIcon name="globe" color="#b9b9b9" size={28} />
             </View>
-            <Text fontSize={13} numberOfLines={1}>
+            <Text fontSize={12} numberOfLines={1}>
               {item.title}
             </Text>
           </TouchableOpacity>

@@ -55,10 +55,10 @@ const HomeDefault: React.FC = () => {
           activeOpacity={0.5}
           bgColor={isDarkMode ? '#828282' : '#f7f7f8'}
           borderRadius={15}
-          borderColor={isDarkMode ? '#828282' : '#f5f5f5'}
-          px={18}
+          borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
+          px={16}
           borderWidth={0.5}
-          py={11}
+          py={10}
           onPress={() => navigation.navigate('Search')}>
           <View direction="row" align="center" gap={12}>
             <FeatherIcon
