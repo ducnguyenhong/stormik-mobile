@@ -73,7 +73,7 @@ const HomeHistory: React.FC = () => {
   );
 
   return (
-    <View direction="row" flexWrap="wrap" px={10} rowGap={15} mt={60}>
+    <View direction="row" flexWrap="wrap" px={10} rowGap={15} mt={50}>
       {HISTORY_LIST.map((item, index) => (
         <TouchableOpacity
           onPress={() => onOpenHistory(item)}
@@ -102,7 +102,9 @@ const HomeHistory: React.FC = () => {
             }}>
             <Image url={item.favicon} w={28} h={28} resizeMode="cover" />
           </View>
-          <Text fontSize={12}>{item.title}</Text>
+          <Text fontSize={12} fontFamily="Medium">
+            {item.title}
+          </Text>
         </TouchableOpacity>
       ))}
       {historyList
@@ -136,7 +138,7 @@ const HomeHistory: React.FC = () => {
               }}>
               <FaIcon name="globe" color="#b9b9b9" size={28} />
             </View>
-            <Text fontSize={12} numberOfLines={1}>
+            <Text fontSize={12} numberOfLines={1} fontFamily="Medium">
               {item.title}
             </Text>
           </TouchableOpacity>

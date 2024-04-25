@@ -63,11 +63,11 @@ const HomeDefault: React.FC = () => {
           <View direction="row" align="center" gap={12}>
             <FeatherIcon
               name="search"
-              color={isDarkMode ? '#b9b9b9' : '#bfbfbf'}
+              color={isDarkMode ? '#b9b9b9' : '#828282'}
               size={21}
             />
             <Text
-              color={isDarkMode ? '#CCC' : '#999999'}
+              color={isDarkMode ? '#CCC' : '#828282'}
               fontSize={15}
               mt={4}
               fontFamily="Regular">
