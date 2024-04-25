@@ -54,8 +54,8 @@ const HomeDefault: React.FC = () => {
           justify="space-between"
           activeOpacity={0.5}
           bgColor={isDarkMode ? '#828282' : '#f7f7f8'}
-          borderRadius={15}
-          borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
+          borderRadius={13}
+          borderColor={isDarkMode ? '#828282' : '#f2f2f2'}
           px={16}
           borderWidth={0.5}
           py={10}

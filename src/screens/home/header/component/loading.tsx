@@ -1,7 +1,7 @@
+import { View } from '@src/controls';
+import { loadingAtom } from '@src/states/common';
 import { memo, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { View } from '../../../../controls';
-import { loadingAtom } from '../../../../states/common';
 
 const Loading: React.FC = () => {
   const [loadingWidth, setLoadingWidth] = useState(0);
