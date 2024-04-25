@@ -19,7 +19,16 @@ interface TextControlProps {
   borderRadius?: number;
   boxShadow?: any;
   fontSize?: number;
-  fontFamily?: string;
+  fontFamily?:
+    | 'Thin'
+    | 'Light'
+    | 'ExtraLight'
+    | 'Regular'
+    | 'Medium'
+    | 'SemiBold'
+    | 'Bold'
+    | 'ExtraBold'
+    | 'Black';
   color?: string;
   w?: number | DimensionValue;
   h?: number | DimensionValue;

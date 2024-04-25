@@ -1,9 +1,9 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from '@src/controls';
 import { useEffect } from 'react';
 import { BackHandler, ScrollView, StatusBar } from 'react-native';
 import uuid from 'react-native-uuid';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { SafeAreaView } from '../../controls';
 import {
   darkModeAtom,
   historyAtom,

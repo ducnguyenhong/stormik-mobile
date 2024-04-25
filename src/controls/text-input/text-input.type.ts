@@ -1,8 +1,11 @@
-import { TextInputProps as RNTextInputProps } from 'react-native';
+import {
+  DimensionValue,
+  TextInputProps as RNTextInputProps,
+} from 'react-native';
 
 interface TextInputControlProps {
-  w?: number | string;
-  h?: number | string;
+  w?: DimensionValue;
+  h?: DimensionValue;
   m?: number;
   p?: number;
   mx?: number;
@@ -17,6 +20,7 @@ interface TextInputControlProps {
   pb?: number;
   pr?: number;
   pl?: number;
+  fontSize?: number;
   flex?: number;
   bgColor?: string;
   borderRadius?: number;
@@ -30,7 +34,16 @@ interface TextInputControlProps {
   textAlignVertical?: string;
   secureTextEntry?: boolean;
   editable?: boolean;
-  fontFamily?: string;
+  fontFamily?:
+    | 'Thin'
+    | 'Light'
+    | 'ExtraLight'
+    | 'Regular'
+    | 'Medium'
+    | 'SemiBold'
+    | 'Bold'
+    | 'ExtraBold'
+    | 'Black';
 }
 
 export type TextInputProps = RNTextInputProps & TextInputControlProps;

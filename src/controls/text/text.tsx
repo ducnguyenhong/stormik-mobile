@@ -1,17 +1,8 @@
 import { memo, useMemo } from 'react';
 import { Text } from 'react-native';
-import { useRecoilValue } from 'recoil';
-import { darkModeAtom } from '../../states/common';
 import { TextProps } from './text.type';
 
 const TextComponent: React.FC<TextProps> = props => {
-  const darkMode = useRecoilValue(darkModeAtom);
-  const isDarkMode = darkMode === 'dark';
-  const defaultColor = useMemo(
-    () => (isDarkMode ? '#f2f2f2' : '#4f4f4f'),
-    [isDarkMode],
-  );
-
   const {
     m,
     p,
@@ -32,8 +23,8 @@ const TextComponent: React.FC<TextProps> = props => {
     boxShadow,
     children,
     fontSize = 14,
-    fontFamily = 'Inter-Regular',
-    color = defaultColor,
+    fontFamily = 'Regular',
+    color = '#4f4f4f',
     w,
     h,
     textAlign,
@@ -57,7 +48,7 @@ const TextComponent: React.FC<TextProps> = props => {
     boxShadow || {};
 
   const defaultStyle = {
-    fontFamily,
+    fontFamily: `Poppins-${fontFamily}`,
     fontSize,
     color,
     backgroundColor: bgColor,

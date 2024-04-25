@@ -1,28 +1,16 @@
 module.exports = {
-  presets: [
-    [
-      'module:metro-react-native-babel-preset',
-      {
-        useTransformReactJSXExperimental: true,
-      },
-    ],
-  ],
+  presets: ['module:@react-native/babel-preset'],
   plugins: [
     [
-      '@babel/plugin-transform-react-jsx',
+      require.resolve('babel-plugin-module-resolver'),
       {
-        runtime: 'automatic',
-      },
-    ],
-    [
-      'module-resolver',
-      {
-        root: ['./src'],
+        cwd: 'babelrc',
+        extensions: ['.ts', '.tsx', '.js', '.ios.js', '.android.js'],
         alias: {
-          '~': './src',
+          '@src': './src',
         },
       },
     ],
-    ['react-native-reanimated/plugin'],
+    'jest-hoist',
   ],
 };

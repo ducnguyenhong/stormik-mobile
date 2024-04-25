@@ -47,6 +47,8 @@ const View: React.FC<ViewProps> = props => {
     minH,
     borderTopLeftRadius,
     borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
     style,
     ...rest
   } = props;
@@ -103,6 +105,8 @@ const View: React.FC<ViewProps> = props => {
         minHeight: minH,
         borderTopLeftRadius,
         borderTopRightRadius,
+        borderBottomLeftRadius,
+        borderBottomRightRadius,
         ...style,
       }}
       {...rest}>

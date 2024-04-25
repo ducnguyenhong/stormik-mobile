@@ -1,4 +1,4 @@
-import { ImageProps as RNImageProps } from 'react-native';
+import { ImageResizeMode, ImageProps as RNImageProps } from 'react-native';
 
 interface ImageControlProps {
   style?: any;
@@ -29,7 +29,7 @@ interface ImageControlProps {
   bottom?: number;
   left?: number;
   right?: number;
-  resizeMode?: any;
+  resizeMode?: ImageResizeMode;
 }
 
 export type ImageProps = RNImageProps & ImageControlProps;

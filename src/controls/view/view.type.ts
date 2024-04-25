@@ -43,6 +43,8 @@ interface ViewControlProps {
   minH?: number;
   borderTopLeftRadius?: number;
   borderTopRightRadius?: number;
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
   style?: any;
 }
 

@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import LogoIncognito from 'assets/images/incognito.png';
-import Logo from 'assets/images/logo.png';
+import LogoIncognito from '@src/assets/images/incognito.png';
+import Logo from '@src/assets/images/logo.png';
+import { Image, Text, TouchableOpacity, View } from '@src/controls';
+import { darkModeAtom } from '@src/states/common';
 import { memo } from 'react';
-import FaIcon from 'react-native-vector-icons/FontAwesome';
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useRecoilValue } from 'recoil';
-import { Image, Text, TouchableOpacity, View } from '../../../controls';
-import { darkModeAtom } from '../../../states/common';
 import HomeHistory from './home-history';
 
 const HomeDefault: React.FC = () => {
@@ -20,8 +19,7 @@ const HomeDefault: React.FC = () => {
         justify="center"
         align="center"
         gap={5}
-        mt={20}
-        mb={40}
+        my={60}
         // direction="row"
       >
         {isDarkMode ? (
@@ -35,7 +33,12 @@ const HomeDefault: React.FC = () => {
             <Image source={LogoIncognito} style={{ width: 60, height: 60 }} />
           </View>
         ) : (
-          <Image source={Logo} style={{ width: 100, height: 100 }} />
+          <View direction="row" align="center" gap={8}>
+            <Image source={Logo} w={55} h={55} />
+            <Text fontFamily="SemiBold" color="#666666" fontSize={35} mt={7}>
+              Stormik
+            </Text>
+          </View>
         )}
         {isDarkMode && (
           <Text fontSize={15} color="#ccc" mt={10}>
@@ -50,30 +53,34 @@ const HomeDefault: React.FC = () => {
           align="center"
           justify="space-between"
           activeOpacity={0.5}
-          bgColor={isDarkMode ? '#828282' : '#f0f0f4'}
-          borderRadius={30}
-          borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
-          px={15}
+          bgColor={isDarkMode ? '#828282' : '#f7f7f8'}
+          borderRadius={15}
+          borderColor={isDarkMode ? '#828282' : '#f5f5f5'}
+          px={18}
           borderWidth={0.5}
-          py={14}
+          py={11}
           onPress={() => navigation.navigate('Search')}>
-          <View direction="row" align="center" gap={8}>
-            <Ionicon
+          <View direction="row" align="center" gap={12}>
+            <FeatherIcon
               name="search"
-              color={isDarkMode ? '#b9b9b9' : '#a6a6a6'}
+              color={isDarkMode ? '#b9b9b9' : '#bfbfbf'}
               size={21}
             />
-            <Text color={isDarkMode ? '#CCC' : '#828282'} fontSize={15}>
-              Tìm kiếm hoặc nhập URL
+            <Text
+              color={isDarkMode ? '#CCC' : '#999999'}
+              fontSize={15}
+              mt={4}
+              fontFamily="Regular">
+              Search or type URL
             </Text>
           </View>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <FaIcon
               name="microphone"
               size={18}
               color={isDarkMode ? '#b9b9b9' : '#a6a6a6'}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </TouchableOpacity>
       </View>
 
