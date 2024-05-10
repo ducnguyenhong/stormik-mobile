@@ -48,7 +48,7 @@ const TextInputComponent = forwardRef((props: TextInputProps, ref: any) => {
     boxShadow || {};
 
   const defaultStyle = {
-    fontFamily: `Poppins-${fontFamily}`,
+    fontFamily: `Inter-${fontFamily}`,
     fontSize,
     color: '#382915',
     backgroundColor: bgColor,

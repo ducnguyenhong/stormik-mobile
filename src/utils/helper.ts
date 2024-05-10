@@ -13,25 +13,58 @@ import {
 } from '../states/common';
 import { TabType } from '../types/tab.type';
 
-export const setAsyncStorage = async (key: string, value: any) => {
+export const clearAsyncStorage = async (key: string) => {
   try {
-    if (!value) {
-      await AsyncStorage.removeItem(key);
-    } else {
-      const stringValue = JSON.stringify(value);
-      await AsyncStorage.setItem(key, stringValue);
+    console.log('Clearing store for [' + key + ']');
+    let numberOfParts: any = await AsyncStorage.getItem(key);
+    if (typeof numberOfParts !== 'undefined' && numberOfParts !== null) {
+      numberOfParts = parseInt(numberOfParts, 10);
+      for (let i = 0; i < numberOfParts; i++) {
+        AsyncStorage.removeItem(key + i);
+      }
+      AsyncStorage.removeItem(key);
     }
-  } catch (e) {
-    console.error('setAsyncStorage error:', e);
+  } catch (error: any) {
+    console.log('Could not clearAsyncStorage : ', error.message);
   }
 };
 
 export const getAsyncStorage = async (key: string) => {
   try {
-    const value: any = await AsyncStorage.getItem(key);
-    return JSON.parse(value);
-  } catch (e) {
-    console.error('getAsyncStorage error:', e);
+    let store = '';
+    let numberOfParts: any = await AsyncStorage.getItem(key);
+    if (typeof numberOfParts === 'undefined' || numberOfParts === null) {
+      return null;
+    } else {
+      numberOfParts = parseInt(numberOfParts, 10);
+    }
+    for (let i = 0; i < numberOfParts; i++) {
+      store += await AsyncStorage.getItem(key + i);
+    }
+    if (store === '') {
+      return null;
+    }
+    return JSON.parse(store);
+  } catch (error: any) {
+    console.log('Could not get [' + key + '] from store.', error?.message);
+    return null;
+  }
+};
+
+export const setAsyncStorage = async (key: string, data: any) => {
+  if (!data) {
+    clearAsyncStorage(key);
+    return;
+  }
+
+  try {
+    const store: any = JSON.stringify(data).match(/.{1,1000000}/g);
+    store.forEach((part: any, index: number) => {
+      AsyncStorage.setItem(key + index, part);
+    });
+    AsyncStorage.setItem(key, '' + store.length);
+  } catch (error: any) {
+    console.log('Could not save store : ', error.message);
   }
 };
 

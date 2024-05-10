@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
+import Logo from '@src/assets/images/logo.png';
+import { Image, TextInput, TouchableOpacity, View } from '@src/controls';
+import { darkModeAtom, keywordAtom, urlAtom } from '@src/states/common';
+import { checkIsUrl, useGoHome } from '@src/utils/helper';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import Logo from '../../../assets/images/logo.png';
-import { Image, TextInput, TouchableOpacity, View } from '../../../controls';
-import { darkModeAtom, keywordAtom, urlAtom } from '../../../states/common';
-import { checkIsUrl } from '../../../utils/helper';
 
 const SearchHeader: React.FC = () => {
   const setKeyword = useSetRecoilState(keywordAtom);
@@ -15,10 +15,11 @@ const SearchHeader: React.FC = () => {
   const searchRef = useRef<any>(null);
   const darkMode = useRecoilValue(darkModeAtom);
   const isDarkMode = darkMode === 'dark';
+  const goHome = useGoHome();
 
   const onSearch = useCallback(() => {
     if (!currentUrl) {
-      navigation.navigate('Home');
+      goHome();
       return;
     }
     const isUrl = checkIsUrl(currentUrl);
@@ -26,8 +27,8 @@ const SearchHeader: React.FC = () => {
       isUrl ? currentUrl : `https://www.google.com/search?q=${currentUrl}`,
     );
     setKeyword(currentUrl);
-    navigation.navigate('Home');
-  }, [currentUrl, navigation, setKeyword, setUrl]);
+    goHome;
+  }, [currentUrl, goHome, setKeyword, setUrl]);
 
   useEffect(() => {
     searchRef?.current?.focus();

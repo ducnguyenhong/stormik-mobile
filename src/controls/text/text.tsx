@@ -48,7 +48,7 @@ const TextComponent: React.FC<TextProps> = props => {
     boxShadow || {};
 
   const defaultStyle = {
-    fontFamily: `Poppins-${fontFamily}`,
+    fontFamily: `Inter-${fontFamily}`,
     fontSize,
     color,
     backgroundColor: bgColor,

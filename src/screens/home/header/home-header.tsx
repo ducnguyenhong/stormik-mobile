@@ -8,8 +8,8 @@ import {
 } from '@src/states/common';
 import { useGoHome } from '@src/utils/helper';
 import { memo, useCallback } from 'react';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
+import Fa6Icon from 'react-native-vector-icons/FontAwesome6';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useRecoilValue } from 'recoil';
 import Loading from './component/loading';
@@ -38,18 +38,18 @@ const HomeHeader = () => {
         borderColor="#ccc"
         bgColor={isDarkMode ? '#1a1a1a' : '#FFF'}
         justify={keyword ? 'flex-start' : 'space-between'}>
-        <TouchableOpacity pl={15} pr={15} onPress={onPressHome}>
+        <TouchableOpacity pl={17} pr={15} onPress={onPressHome}>
           <Ionicon
-            name="chevron-back"
-            size={24}
-            color={isDarkMode ? '#e6e6e6' : '#000'}
+            name="home"
+            size={20}
+            color={isDarkMode ? '#e6e6e6' : '#449735'}
           />
         </TouchableOpacity>
         {!!keyword && (
           <TouchableOpacity
-            bgColor={isDarkMode ? '#404040' : '#f5f5f5'}
+            bgColor={isDarkMode ? '#404040' : '#f2f2f2'}
             borderRadius={10}
-            borderColor={isDarkMode ? '#828282' : '#f2f2f2'}
+            borderColor={isDarkMode ? '#828282' : '#e6e6e6'}
             flex={1}
             pl={15}
             pr={15}
@@ -61,7 +61,6 @@ const HomeHeader = () => {
             onPress={() => navigation.navigate('Search')}>
             <FaIcon name="lock" size={17} color="#828282" />
             <Text
-              mt={3}
               flex={1}
               numberOfLines={1}
               // fontFamily="SemiBold"
@@ -73,10 +72,25 @@ const HomeHeader = () => {
         <View direction="row" align="center">
           <TouchableOpacity
             onPress={() => navigation.navigate('Tabs')}
-            pl={15}
+            pl={20}
+            pr={10}
+            py={5}>
+            <View position="relative">
+              <Ionicon name="copy-outline" color="#4d4d4d" size={24} />
+              <View position="absolute" top={5} left={10.5}>
+                <Text fontSize={12} fontFamily="Medium">
+                  {tabs.length}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('User')}
+            pl={10}
             pr={15}
             py={5}>
-            <FeatherIcon name="more-horizontal" color="#000" size={22} />
+            <Fa6Icon name="circle-user" color="#4d4d4d" solid size={22} />
           </TouchableOpacity>
         </View>
       </View>

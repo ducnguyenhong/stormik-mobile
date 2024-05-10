@@ -9,7 +9,7 @@ const Routes: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="TabBar"
+        initialRouteName="Home"
         screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabBar" component={TabBar} />
         {ROUTES.map(item => (

@@ -35,7 +35,7 @@ const HomeDefault: React.FC = () => {
         ) : (
           <View direction="row" align="center" gap={8}>
             <Image source={Logo} w={55} h={55} />
-            <Text fontFamily="SemiBold" color="#666666" fontSize={35} mt={7}>
+            <Text fontFamily="SemiBold" color="#666666" fontSize={35} mt={-2}>
               Stormik
             </Text>
           </View>
@@ -58,7 +58,7 @@ const HomeDefault: React.FC = () => {
           borderColor={isDarkMode ? '#828282' : '#f2f2f2'}
           px={16}
           borderWidth={0.5}
-          py={10}
+          py={15}
           onPress={() => navigation.navigate('Search')}>
           <View direction="row" align="center" gap={12}>
             <FeatherIcon
@@ -69,9 +69,8 @@ const HomeDefault: React.FC = () => {
             <Text
               color={isDarkMode ? '#CCC' : '#828282'}
               fontSize={15}
-              mt={4}
               fontFamily="Regular">
-              Search or type URL
+              Tìm kiếm hoặc nhập URL
             </Text>
           </View>
           {/* <TouchableOpacity>

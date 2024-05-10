@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '@src/screens/home';
+import Tabs from '@src/screens/tabs';
 import { MAIN_COLOR } from '@src/utils/const';
 import { memo } from 'react';
 import { Platform } from 'react-native';
@@ -11,27 +12,27 @@ const TabBar = () => {
   const STACK_DATA = [
     {
       component: Home,
-      label: 'Discovery',
+      label: 'Khám phá',
       name: 'DiscoveryTab',
     },
     {
       component: Home,
-      label: 'Search',
+      label: 'Tìm kiếm',
       name: 'SearchTab',
     },
     {
       component: Home,
-      label: 'Home',
+      label: 'Trang chủ',
       name: 'HomeTab',
     },
     {
-      component: Home,
-      label: 'Tabs',
+      component: Tabs,
+      label: 'Thẻ',
       name: 'TabsTab',
     },
     {
       component: Home,
-      label: 'More',
+      label: 'Khác',
       name: 'MoreTab',
     },
   ];
@@ -59,9 +60,9 @@ const TabBar = () => {
         },
         headerTitleStyle: { color: '#FFF' },
         tabBarLabelStyle: {
-          marginBottom: 3,
+          marginBottom: 5,
           fontSize: 11,
-          fontFamily: 'Poppins-Regular',
+          fontFamily: 'Inter-Regular',
         },
         headerShown: false,
         tabBarShowLabel: true,

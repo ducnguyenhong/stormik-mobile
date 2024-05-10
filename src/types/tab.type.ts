@@ -5,4 +5,5 @@ export interface TabType {
   isActive: boolean;
   type: 'NORMAL' | 'INCOGNITO';
   favicon?: string;
+  thumbnail?: string;
 }
